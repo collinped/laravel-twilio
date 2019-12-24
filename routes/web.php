@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::post('webhook/twilio-video', 'WebhookController@handleWebhook')->name('webhook.twilio-video');
+Route::post('webhook/twilio-video', 'WebhookController@handleWebhook')->name('webhook');

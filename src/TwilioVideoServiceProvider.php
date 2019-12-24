@@ -19,7 +19,7 @@ class TwilioVideoServiceProvider extends ServiceProvider
         //$this->registerLogger();
         $this->registerRoutes();
         //$this->registerResources();
-        $this->registerMigrations();
+        //$this->registerMigrations();
         $this->registerCommands();
         $this->registerPublishing();
 //        Stripe::setAppInfo(
@@ -61,7 +61,7 @@ class TwilioVideoServiceProvider extends ServiceProvider
     {
         if (TwilioVideo::$registersRoutes) {
             Route::group([
-                'prefix' => config('cashier.path'),
+                'prefix' => config('twilio-video.path'),
                 'namespace' => 'Collinped\TwilioVideo\Http\Controllers',
                 'as' => 'twilio-video.',
             ], function () {
@@ -106,9 +106,6 @@ class TwilioVideoServiceProvider extends ServiceProvider
             $this->publishes([
                 __DIR__.'/../database/migrations' => $this->app->databasePath('migrations'),
             ], 'twilio-video-migrations');
-//            $this->publishes([
-//                __DIR__.'/../resources/views' => $this->app->resourcePath('views/vendor/cashier'),
-//            ], 'cashier-views');
         }
     }
 }
