@@ -31,7 +31,7 @@ trait TwilioVideoWebhook {
         $method = 'handle'.Str::studly($payload['StatusCallbackEvent']);
 
         WebhookReceived::dispatch($payload);
-        Log::debug('Webhook Recieved: ' . $method);
+        //Log::debug('Webhook Recieved: ' . $method);
 
         if (method_exists($this, $method)) {
             $response = $this->{$method}($payload);
@@ -40,7 +40,8 @@ trait TwilioVideoWebhook {
 
             return $response;
         }
-        return $this->missingMethod();
+
+        return $this->missingMethod($method);
     }
 
     /**
@@ -59,9 +60,10 @@ trait TwilioVideoWebhook {
      * @param  array  $parameters
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function missingMethod($parameters = [])
+    protected function missingMethod($method, $parameters = [])
     {
-        return new Response;
+        Log::error('Webhook Method Does not exist: ' . $method);
+        return new Response('Webhook Method Does not exist: ' . $method, 403);
     }
 
 }

@@ -4,42 +4,52 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Twilio Keys
+    | Access Token
     |--------------------------------------------------------------------------
     |
-    | The Twilio publishable key and secret key give you access to Twilio's
-    | API.
+    | Access token that can be found in your Twilio dashboard
     |
     */
     'auth_token' => env('TWILIO_AUTH_TOKEN'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | SID
+    |--------------------------------------------------------------------------
+    |
+    | Your Twilio Account SID #
+    |
+    */
     'account_sid' => env('TWILIO_ACCOUNT_SID'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Key
+    |--------------------------------------------------------------------------
+    |
+    | Your Twilio API Key
+    |
+    */
     'api_key' => env('TWILIO_API_KEY'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | API Secret
+    |--------------------------------------------------------------------------
+    |
+    | Your Twilio API Secret
+    |
+    */
     'api_secret' => env('TWILIO_API_SECRET'),
 
     /*
     |--------------------------------------------------------------------------
-    | Twilio Video Model
+    | Default Room Type
     |--------------------------------------------------------------------------
     |
-    | This is the model in your application that implements the Video trait
-    | provided by Twilio Video. It will serve as the primary model you use while
-    | interacting with Twilio Video related methods and so on.
+    | The default video room type that will be created
     |
     */
-
-    'model' => env('TWILIO_VIDEO_MODEL', App\User::class),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Stripe Logger
-    |--------------------------------------------------------------------------
-    |
-    | This setting defines which logging channel will be used by the Stripe
-    | library to write log messages. You are free to specify any of your
-    | logging channels listed inside the "logging" configuration file.
-    |
-    */
-
-    //'logger' => env('CASHIER_LOGGER'),
+    'room_type' => 'peer-to-peer'
 
 ];

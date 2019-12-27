@@ -16,19 +16,10 @@ class TwilioVideoServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //$this->registerLogger();
         $this->registerRoutes();
-        //$this->registerResources();
-        //$this->registerMigrations();
         $this->registerCommands();
         $this->registerPublishing();
-//        Stripe::setAppInfo(
-//            'Laravel Cashier',
-//            Cashier::VERSION,
-//            'https://laravel.com'
-//        );
     }
-
 
     /**
      * Register any application services.
@@ -81,18 +72,6 @@ class TwilioVideoServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the package migrations.
-     *
-     * @return void
-     */
-    protected function registerMigrations()
-    {
-        if (TwilioVideo::$runsMigrations && $this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        }
-    }
-
-    /**
      * Register the package's publishable resources.
      *
      * @return void
@@ -102,10 +81,7 @@ class TwilioVideoServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/twilio-video.php' => $this->app->configPath('twilio-video.php'),
-            ], 'cashier-config');
-            $this->publishes([
-                __DIR__.'/../database/migrations' => $this->app->databasePath('migrations'),
-            ], 'twilio-video-migrations');
+            ], 'twilio-video-config');
         }
     }
 }

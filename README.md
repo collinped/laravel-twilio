@@ -42,20 +42,20 @@ This is the contents of the file that will be published at config/twilio-video.p
 Insert the following values into your .env
 
 ```php
-    TWILIO_AUTH_TOKEN=
-    TWILIO_ACCOUNT_SID=
-    TWILIO_API_KEY=
-    TWILIO_API_SECRET=
+TWILIO_AUTH_TOKEN=
+TWILIO_ACCOUNT_SID=
+TWILIO_API_KEY=
+TWILIO_API_SECRET=
 ```
 
 See Twilio Video Settings for instructions on how to get these values.
 
 ### Taking care of routing
 
-Finally, let's take care of the routing. At the app that sends webhooks, you probably configure an URL where you want your webhook requests to be sent. In the routes file of your app, you must pass that route to `Route::post`. Here's an example:
+Finally, let's take care of the routing. At the app that sends webhooks, you probably configure an URL where you want your webhook requests to be sent. In the routes file of your app (web.php), you must pass that route to `Route::post`. Here's an example:
 
 ```php
-Route::post('webhook/twilio-video');
+Route::post('webhook/twilio-video', 'WebhookController@handleWebhook')->name('twilio-video.webhook');
 ```
 
 Behind the scenes, this will register a `POST` route to a controller provided by this package. Because the app that sends webhooks to you has no way of getting a csrf-token, you must add that route to the `except` array of the `VerifyCsrfToken` middleware:

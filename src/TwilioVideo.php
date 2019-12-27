@@ -7,9 +7,24 @@ use Twilio\Rest\Client;
 
 class TwilioVideo
 {
+    /**
+     * @var string
+     */
     protected $accountSid;
+
+    /**
+     * @var string
+     */
     protected $authToken;
+
+    /**
+     * @var string
+     */
     protected $apiKey;
+
+    /**
+     * @var string
+     */
     protected $apiSecret;
 
     /**
@@ -26,29 +41,11 @@ class TwilioVideo
     }
 
     /**
-     * Indicates if Twilio Video migrations will be run.
-     *
-     * @var bool
-     */
-    public static $runsMigrations = true;
-
-    /**
      * Indicates if Twilio Video routes will be registered.
      *
      * @var bool
      */
     public static $registersRoutes = true;
-
-    /**
-     * Configure Twilio Video to not register its migrations.
-     *
-     * @return static
-     */
-    public static function ignoreMigrations()
-    {
-        static::$runsMigrations = false;
-        return new static;
-    }
 
     /**
      * Configure Twilio Video to not register its routes.

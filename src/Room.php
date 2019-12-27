@@ -3,11 +3,15 @@
 
 namespace Collinped\TwilioVideo;
 
-
 use Illuminate\Support\Str;
 
 class Room extends TwilioVideo
 {
+    protected $shouldRecord = false;
+    protected $roomType = 'peer-to-peer';
+    protected $callbackUrl;
+    protected $roomName;
+
     public function all(array $params = [], $limit = null, $page= null)
     {
         //Retrieve by status
@@ -22,27 +26,71 @@ class Room extends TwilioVideo
         return response()->json($rooms);
     }
 
-    public function get($identifier)
+    public function get($roomIdentifier)
     {
         //Return a specific room by unique name or Sid
-        return $this->twilio->video->v1->rooms($identifier)
+        return $this->twilio->video->v1->rooms($roomIdentifier)
             ->fetch();
     }
 
-    public function create($uniqueName, $type = 'group', array $params = [])
+    public function create($uniqueName = null, $type = 'group', array $params = [])
     {
-        $params['uniqueName'] = ($uniqueName ?: Str::random(40));
-        $params['type'] = $type;
+        if ($uniqueName) {
+            $this->roomName = $uniqueName;
+        }
+        $params['uniqueName'] = ($this->roomName ?: Str::random(40));
+        $params['type'] = $this->roomType;
+        if ($this->roomType !== 'peer-to-peer') {
+            $params['recordParticipantsOnConnect'] = $this->shouldRecord;
+        }
 
         return $this->twilio->video->v1->rooms
             ->create($params);
     }
 
+    public function name($roomName)
+    {
+        $this->roomName = $roomName;
+        return $this;
+    }
+
+    public function callbackUrl($url)
+    {
+        $this->callbackUrl = $url;
+        return $this;
+    }
+
+    public function peerToPeer()
+    {
+        $this->roomType = 'peer-to-peer';
+        return $this;
+    }
+
+    public function group()
+    {
+        $this->roomType = 'group';
+        return $this;
+    }
+
+    public function groupSmall()
+    {
+        $this->roomType = 'group-small';
+        return $this;
+    }
+
+    public function type($roomType)
+    {
+        $this->roomType = $roomType;
+        return $this;
+    }
+
     //TODO - Extend on the object to enableRecording
     public function withRecording()
     {
-        //Check that the type is group or group-small
-        //Enable recording
+        if ($this->roomType !== 'peer-to-peer') {
+            $this->shouldRecord = true;
+        }
+        return $this;
     }
 
     public function complete($room)
