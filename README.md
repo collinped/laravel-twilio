@@ -27,9 +27,10 @@ Open `app.php`, and add a new item to the providers array.
 This will register a new artisan command for you:
 
 - `twilio-video:room NAME`
+- `twilio-video:participants SID`
 
 
-###Configuring the package
+### Configuring the package
 
 You can publish the config file with:
 
@@ -66,7 +67,7 @@ protected $except = [
 ];
 ```
 
-###Twilio Video Settings
+### Twilio Video Settings
 
 If you have an existing Twilio account login to your console or sign up here for your free trial account: <a href="https://www.twilio.com/referral/ghFcTs" target="_blank">Register for Twilio</a>
 

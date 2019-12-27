@@ -11,12 +11,23 @@ class Room extends TwilioVideo
     protected $roomType = 'peer-to-peer';
     protected $callbackUrl;
     protected $roomName;
+    protected $roomSid;
 
     public function all(array $params = [], $limit = null, $page= null)
     {
-        //Retrieve by status
-        //Retrieve by uniqueName
-        //Retrieve by completed
+        $allowedStatuses = [
+            'in-progress',
+            'completed'
+        ];
+
+        if (isset($params['status'])) {
+            //Compare the values of the status to the allowedStatuses
+        }
+
+        if (isset($params['name'])) {
+            $params['uniqueName'] = $params['name'];
+        }
+
         $allRooms = $this->twilio->video->v1->rooms->read($params, $limit, $page);
 
         $rooms = array_map(function($room) {
@@ -46,6 +57,12 @@ class Room extends TwilioVideo
 
         return $this->twilio->video->v1->rooms
             ->create($params);
+    }
+
+    public function room($roomSid)
+    {
+        $this->roomSid;
+        return $this;
     }
 
     public function name($roomName)
@@ -84,7 +101,6 @@ class Room extends TwilioVideo
         return $this;
     }
 
-    //TODO - Extend on the object to enableRecording
     public function withRecording()
     {
         if ($this->roomType !== 'peer-to-peer') {
@@ -93,30 +109,30 @@ class Room extends TwilioVideo
         return $this;
     }
 
-    public function complete($room)
+    public function complete($roomSid)
     {
-        return $this->twilio->video->v1->rooms($room)
+        return $this->twilio->video->v1->rooms($roomSid)
             ->update("completed");
     }
 
-    public function getParticipant($room, $name)
+    public function getParticipant($roomSid, $name)
     {
-        return $this->twilio->video->rooms($room)
+        return $this->twilio->video->rooms($roomSid)
             ->participants($name)
             ->fetch();
     }
 
-    public function removeParticipant($room, $name)
+    public function removeParticipant($roomSid, $name)
     {
-        return $this->twilio->video->v1->rooms($room)
+        return $this->twilio->video->v1->rooms($roomSid)
             ->participants($name)
             ->update(array("status" => "disconnected"));;
     }
 
-    public function getParticipants($room, $status = 'connected')
+    public function getParticipants($roomSid, $status = 'connected')
     {
         //status = connected or disconnected
-        return $this->twilio->video->v1->rooms($room)
+        return $this->twilio->video->v1->rooms($roomSid)
             ->participants->read([
                 "status" => $status
             ]);
