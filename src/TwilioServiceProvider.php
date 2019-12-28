@@ -1,13 +1,13 @@
 <?php
 
-namespace Collinped\TwilioVideo;
+namespace Collinped\Twilio;
 
 use Aloha\Twilio\Commands\TwilioVideoRoomCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 
-class TwilioVideoServiceProvider extends ServiceProvider
+class TwilioServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any package services.
@@ -39,7 +39,7 @@ class TwilioVideoServiceProvider extends ServiceProvider
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/twilio-video.php', 'twilio-video'
+            __DIR__.'/../config/twilio.php', 'twilio'
         );
     }
 
@@ -50,11 +50,11 @@ class TwilioVideoServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        if (TwilioVideo::$registersRoutes) {
+        if (Twilio::$registersRoutes) {
             Route::group([
-                'prefix' => config('twilio-video.path'),
-                'namespace' => 'Collinped\TwilioVideo\Http\Controllers',
-                'as' => 'twilio-video.',
+                'prefix' => config('twilio.video.path'),
+                'namespace' => 'Collinped\Twilio\Http\Controllers',
+                'as' => 'twilio.',
             ], function () {
                 $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
             });
@@ -68,7 +68,7 @@ class TwilioVideoServiceProvider extends ServiceProvider
      */
     protected function registerCommands()
     {
-        $this->app->singleton('twilio-video.room', TwilioVideoRoomCommand::class);
+        $this->app->singleton('twilio.video.room', TwilioVideoRoomCommand::class);
     }
 
     /**
@@ -80,8 +80,8 @@ class TwilioVideoServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/twilio-video.php' => $this->app->configPath('twilio-video.php'),
-            ], 'twilio-video-config');
+                __DIR__.'/../config/twilio.php' => $this->app->configPath('twilio.php'),
+            ], 'twilio-config');
         }
     }
 }

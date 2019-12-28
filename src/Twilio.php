@@ -1,11 +1,11 @@
 <?php
 
 
-namespace Collinped\TwilioVideo;
+namespace Collinped\Twilio;
 
 use Twilio\Rest\Client;
 
-class TwilioVideo
+class Twilio
 {
     /**
      * @var string

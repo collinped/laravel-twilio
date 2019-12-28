@@ -1,16 +1,16 @@
 <?php
 
-namespace Collinped\TwilioVideo;
+namespace Collinped\Twilio;
 
 use App\Http\Middleware\ValidateTwilioRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-use Collinped\TwilioVideo\Events\WebhookHandled;
-use Collinped\TwilioVideo\Events\WebhookReceived;
+use Collinped\Twilio\Events\WebhookHandled;
+use Collinped\Twilio\Events\WebhookReceived;
 
-trait TwilioVideoWebhook {
+trait TwilioWebhook {
 
     /**
      * Create a TwilioVideoRoomCallback instance.

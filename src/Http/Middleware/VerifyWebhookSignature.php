@@ -1,6 +1,6 @@
 <?php
 
-namespace Collinped\TwilioVideo\Http\Middleware;
+namespace Collinped\Twilio\Http\Middleware;
 
 use Closure;
 use Twilio\Security\RequestValidator;

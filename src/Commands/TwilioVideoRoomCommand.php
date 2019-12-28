@@ -1,7 +1,7 @@
 <?php
 namespace Aloha\Twilio\Commands;
 
-use Collinped\TwilioVideo\TwilioVideo;
+use Collinped\TwilioVideo\Twilio;
 use Collinped\TwilioVideo\TwilioVideoInterface;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -27,9 +27,9 @@ class TwilioVideoRoomCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param TwilioVideo $twilioVideo
+     * @param Twilio $twilioVideo
      */
-    public function __construct(TwilioVideo $twilioVideo)
+    public function __construct(Twilio $twilioVideo)
     {
         parent::__construct();
 

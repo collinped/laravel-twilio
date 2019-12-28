@@ -1,6 +1,6 @@
 <?php
 
-namespace Collinped\TwilioVideo\Events;
+namespace Collinped\Twilio\Events;
 
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;

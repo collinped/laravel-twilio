@@ -1,11 +1,12 @@
 <?php
 
 
-namespace Collinped\TwilioVideo;
+namespace Collinped\Twilio;
 
-use Illuminate\Support\Str;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Storage;
 
-class Room extends TwilioVideo
+class Video extends Twilio
 {
     protected $shouldRecord = false;
     protected $roomType = 'peer-to-peer';
@@ -13,7 +14,7 @@ class Room extends TwilioVideo
     protected $roomName;
     protected $roomSid;
 
-    public function all(array $params = [], $limit = null, $page= null)
+    public function getRooms(array $params = [], $limit = null, $page= null)
     {
         $allowedStatuses = [
             'in-progress',
@@ -21,7 +22,9 @@ class Room extends TwilioVideo
         ];
 
         if (isset($params['status'])) {
-            //Compare the values of the status to the allowedStatuses
+            if (!in_array($params['status'], $allowedStatuses)) {
+                $params['status'] = null;
+            }
         }
 
         if (isset($params['name'])) {
@@ -39,7 +42,6 @@ class Room extends TwilioVideo
 
     public function get($roomIdentifier)
     {
-        //Return a specific room by unique name or Sid
         return $this->twilio->video->v1->rooms($roomIdentifier)
             ->fetch();
     }
@@ -62,42 +64,28 @@ class Room extends TwilioVideo
     public function room($roomSid)
     {
         $this->roomSid;
+
         return $this;
     }
 
     public function name($roomName)
     {
         $this->roomName = $roomName;
+
         return $this;
     }
 
     public function callbackUrl($url)
     {
         $this->callbackUrl = $url;
-        return $this;
-    }
 
-    public function peerToPeer()
-    {
-        $this->roomType = 'peer-to-peer';
-        return $this;
-    }
-
-    public function group()
-    {
-        $this->roomType = 'group';
-        return $this;
-    }
-
-    public function groupSmall()
-    {
-        $this->roomType = 'group-small';
         return $this;
     }
 
     public function type($roomType)
     {
         $this->roomType = $roomType;
+
         return $this;
     }
 
@@ -106,6 +94,14 @@ class Room extends TwilioVideo
         if ($this->roomType !== 'peer-to-peer') {
             $this->shouldRecord = true;
         }
+
+        return $this;
+    }
+
+    public function withoutRecording()
+    {
+        $this->shouldRecord = false;
+
         return $this;
     }
 
@@ -126,7 +122,7 @@ class Room extends TwilioVideo
     {
         return $this->twilio->video->v1->rooms($roomSid)
             ->participants($name)
-            ->update(array("status" => "disconnected"));;
+            ->update(array("status" => "disconnected"));
     }
 
     public function getParticipants($roomSid, $status = 'connected')
@@ -138,13 +134,32 @@ class Room extends TwilioVideo
             ]);
     }
 
-    public function getRecordings($roomSid)
+    //Recording
+    public function getRecording($recordingSid)
     {
-        return $this->twilio->video->v1->recordings
-            ->read(array(
-                "groupingSid" => array($roomSid)
-            ),
-                20
-            );
+        return $this->twilio->video->v1->recordings($recordingSid)
+            ->fetch();
+    }
+
+    public function getRecordingMedia($recordingSid)
+    {
+        $client = new Client();
+        //Retrieve the actual recording media
+        $uri = "https://video.twilio.com/v1/Recordings/$recordingSid/Media";
+        $response = $client->request("GET", $uri);
+        $mediaLocation = $response->getContent()["redirect_to"];
+        $media_content = file_get_contents($mediaLocation);
+        Storage::disk('local')->put($recordingSid, $media_content);
+        $path = Storage::url($recordingSid);
+
+        return response()->download($path);
+
+    }
+
+    public function deleteRecording($recordingSid)
+    {
+        //Delete the recording
+        return $this->twilio->video->v1->recordings($recordingSid)
+            ->delete();
     }
 }

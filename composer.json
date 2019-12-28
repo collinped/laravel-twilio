@@ -1,9 +1,9 @@
 {
-    "name": "collinped/laravel-twilio-video",
-    "description": "Laravel Twilio Video Package",
+    "name": "collinped/laravel-twilio",
+    "description": "Laravel Twilio Package",
     "license": "MIT",
     "type": "project",
-    "keywords": ["laravel", "twilio", "video"],
+    "keywords": ["laravel", "twilio", "twilio video", "twilio sms", "twilio chat"],
     "authors": [
         {
             "name": "Collin Pedersen",
@@ -16,10 +16,10 @@
         "illuminate/support": "^6.8",
         "twilio/sdk": "^5.41"
     },
-    "homepage":"https://github.com/collinped/laravel-twilio-video",
+    "homepage":"https://github.com/collinped/laravel-twilio",
     "autoload": {
         "psr-4": {
-            "Collinped\\TwilioVideo\\": "src/"
+            "Collinped\\Twilio\\": "src/"
         }
     },
     "config": {
@@ -30,7 +30,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Collinped\\TwilioVideo\\TwilioVideoServiceProvider"
+                "Collinped\\Twilio\\TwilioServiceProvider"
             ]
         }
     }

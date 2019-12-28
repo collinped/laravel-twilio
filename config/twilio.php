@@ -44,12 +44,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Default Room Type
+    | Twilio Video Configuration
     |--------------------------------------------------------------------------
     |
-    | The default video room type that will be created
+    | Configuration variables dedicated to Twilio Video
     |
     */
-    'room_type' => 'peer-to-peer'
+    'video' => [
+        /*
+        |--------------------------------------------------------------------------
+        | Default Room Type
+        |--------------------------------------------------------------------------
+        |
+        | The default video room type that will be created
+        |
+        */
+        'room_type' => 'peer-to-peer'
+    ]
+
 
 ];

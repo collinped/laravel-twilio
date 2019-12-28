@@ -1,24 +1,18 @@
 <?php
 
-namespace Collinped\TwilioVideo\Http\Controllers;
+namespace Collinped\Twilio\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Collinped\TwilioVideo\TwilioVideoWebhook;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
+use Collinped\Twilio\TwilioWebhook;
 use Symfony\Component\HttpFoundation\Response;
-use Collinped\TwilioVideo\Http\Middleware\VerifyWebhookSignature;
-use Twilio\Events\WebhookHandled;
-use Twilio\Events\WebhookReceived;
 
 /**
  * Class TwilioVideoRoomCallback
  * @package App\Http\Controllers\Callback
  */
-class WebhookController extends Controller
+class VideoWebhookController extends Controller
 {
-    use TwilioVideoWebhook;
+    use TwilioWebhook;
 
     /**
      * Handle a room created from a Twilio Video callback.
