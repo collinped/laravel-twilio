@@ -2,7 +2,7 @@
 
 namespace Collinped\Twilio;
 
-use App\Http\Middleware\ValidateTwilioRequest;
+use Collinped\Twilio\Http\Middleware\VerifyTwilioSignature;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -17,7 +17,7 @@ trait TwilioWebhook {
      */
     public function __construct()
     {
-        $this->middleware(ValidateTwilioRequest::class);
+        $this->middleware(VerifyTwilioSignature::class);
     }
 
     /**
@@ -63,6 +63,7 @@ trait TwilioWebhook {
     protected function missingMethod($method, $parameters = [])
     {
         Log::error('Webhook Method Does not exist: ' . $method);
+
         return new Response('Webhook Method Does not exist: ' . $method, 403);
     }
 

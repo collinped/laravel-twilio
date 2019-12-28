@@ -6,15 +6,19 @@ namespace Collinped\Twilio;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 
-class Video extends Twilio
+class TwilioVideo extends Twilio
 {
     protected $shouldRecord = false;
     protected $roomType = 'peer-to-peer';
-    protected $callbackUrl;
+    /**
+     * @var null|string
+     */
+    protected $statusCallback = null;
+
     protected $roomName;
     protected $roomSid;
 
-    public function getRooms(array $params = [], $limit = null, $page= null)
+    public function all(array $params = [], $limit = null, $page= null)
     {
         $allowedStatuses = [
             'in-progress',
@@ -46,7 +50,7 @@ class Video extends Twilio
             ->fetch();
     }
 
-    public function create($uniqueName = null, $type = 'group', array $params = [])
+    public function create($uniqueName = null, array $params = [])
     {
         if ($uniqueName) {
             $this->roomName = $uniqueName;
@@ -75,9 +79,15 @@ class Video extends Twilio
         return $this;
     }
 
-    public function callbackUrl($url)
+    /**
+     * Set the status callback.
+     *
+     * @param string $statusCallback
+     * @return $this
+     */
+    public function statusCallback($statusCallback)
     {
-        $this->callbackUrl = $url;
+        $this->statusCallback = $statusCallback;
 
         return $this;
     }

@@ -5,7 +5,7 @@ namespace Collinped\Twilio\Http\Middleware;
 use Closure;
 use Twilio\Security\RequestValidator;
 
-class VerifyWebhookSignature
+class VerifyTwilioSignature
 {
     /**
      * Handle an incoming request.

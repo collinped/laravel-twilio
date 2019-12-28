@@ -44,6 +44,28 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Prefix to URL
+    |--------------------------------------------------------------------------
+    |
+    | Add a prefix to the routes for the twilio prefixes
+    | Example: {prefix}/webhook/twilio-video
+    |
+    */
+    'path' => env('TWILIO_PATH', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Twilio From Number
+    |--------------------------------------------------------------------------
+    |
+    | This will apply to all services that do not have a specified env variable
+    |
+    */
+    'from' => env('TWILIO_FROM'),
+
+
+    /*
+    |--------------------------------------------------------------------------
     | Twilio Video Configuration
     |--------------------------------------------------------------------------
     |
@@ -59,8 +81,93 @@ return [
         | The default video room type that will be created
         |
         */
-        'room_type' => 'peer-to-peer'
-    ]
+        'room_type' => 'peer-to-peer',
 
+        /*
+        |--------------------------------------------------------------------------
+        | Default Twilio Video Webhook/Callback URL
+        |--------------------------------------------------------------------------
+        |
+        | The default callback URL that will be used
+        |
+        */
+        'webhook' => env('TWILIO_VIDEO_WEBHOOK', route('twilio.video.webhook'))
+    ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Twilio SMS Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration variables dedicated to Twilio SMS
+    |
+    */
+    'sms' => [
+        'from' => '+1233456789',
+        /*
+        |--------------------------------------------------------------------------
+        | Default Twilio SMS Webhook/Callback URL
+        |--------------------------------------------------------------------------
+        |
+        | The default callback URL that will be used
+        |
+        */
+        'webhook' => env('TWILIO_SMS_WEBHOOK', route('twilio.sms.webhook'))
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Twilio Video Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration variables dedicated to Twilio Voice
+    |
+    */
+    'voice' => [
+        'from' => '+123456789',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Default Twilio Voice Webhook/Callback URL
+        |--------------------------------------------------------------------------
+        |
+        | The default callback URL that will be used
+        |
+        */
+        'webhook' => env('TWILIO_VOICE_WEBHOOK', route('twilio.voice.webhook'))
+    ],
+
+    'fax' => [
+        'from' => '+123456789',
+
+        /*
+        |--------------------------------------------------------------------------
+        | Default Twilio Voice Webhook/Callback URL
+        |--------------------------------------------------------------------------
+        |
+        | The default callback URL that will be used
+        |
+        */
+        'webhook' => env('TWILIO_FAX_WEBHOOK', route('twilio.fax.webhook'))
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Twilio Verify Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration variables dedicated to Twilio Verify
+    |
+    */
+    'verify' => [],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Twilio Chat Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Configuration variables dedicated to Twilio Chat
+    |
+    */
+    'chat' => []
 ];

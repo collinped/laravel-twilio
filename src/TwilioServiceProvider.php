@@ -52,7 +52,7 @@ class TwilioServiceProvider extends ServiceProvider
     {
         if (Twilio::$registersRoutes) {
             Route::group([
-                'prefix' => config('twilio.video.path'),
+                'prefix' => config('twilio.path'),
                 'namespace' => 'Collinped\Twilio\Http\Controllers',
                 'as' => 'twilio.',
             ], function () {

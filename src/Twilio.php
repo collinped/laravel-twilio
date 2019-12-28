@@ -3,7 +3,7 @@
 
 namespace Collinped\Twilio;
 
-use Twilio\Rest\Client;
+use Twilio\Rest\Client as TwilioService;
 
 class Twilio
 {
@@ -28,16 +28,22 @@ class Twilio
     protected $apiSecret;
 
     /**
+     * @var bool
+     */
+    protected $sslVerify;
+
+    /**
      * @var \Twilio\Rest\Client
      */
     protected $twilio;
 
-    public function __construct($accountSid, $authToken, $apiKey, $apiSecret)
+    public function __construct($accountSid, $authToken, $sslVerify, $apiKey, $apiSecret)
     {
         $this->accountSid = $accountSid;
         $this->authToken = $authToken;
         $this->apiKey = $apiKey;
         $this->apiSecret = $apiSecret;
+        $this->sslVerify = $sslVerify;
     }
 
     /**
@@ -67,6 +73,6 @@ class Twilio
         if ($this->twilio) {
             return $this->twilio;
         }
-        return $this->twilio = new Client($this->accountSid, $this->authToken);
+        return $this->twilio = new TwilioService($this->accountSid, $this->authToken);
     }
 }

@@ -1,15 +1,15 @@
-![Laravel Twilio Video](cover.png?raw=true "Laravel Twilio Video")
+![Laravel Twilio](cover.png?raw=true "Laravel Twilio")
 
-laravel-twilio-video
+laravel-twilio
 ===============
-UNDER CONSTRUCTION - Laravel Twilio Video API Integration
+UNDER CONSTRUCTION - Laravel Twilio SDK/API Integration
 
 ## Installation
 
 Begin by installing this package through Composer. Run this command from the Terminal:
 
 ```bash
-composer require collinped/laravel-twilio-video
+composer require collinped/laravel-twilio
 ```
 If you're using Laravel 5.5+, this is all there is to do.
 
@@ -21,13 +21,13 @@ To wire this up in your Laravel project, you need to add the service provider.
 Open `app.php`, and add a new item to the providers array.
 
 ```php
-'Collinped\TwilioVideo\TwilioVideoServiceProvider',
+'Collinped\Twilio\TwilioServiceProvider',
 ```
 
 This will register a new artisan command for you:
 
-- `twilio-video:room NAME`
-- `twilio-video:participants SID`
+- `twilio:video-room NAME`
+- `twilio:video-participants SID`
 
 
 ### Configuring the package
@@ -35,10 +35,10 @@ This will register a new artisan command for you:
 You can publish the config file with:
 
 ```php
-php artisan vendor:publish --provider="Collinped\TwilioVideo\TwilioVideoServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Collinped\Twilio\TwilioServiceProvider" --tag="config"
 ```
 
-This is the contents of the file that will be published at config/twilio-video.php
+This is the contents of the file that will be published at config/twilio.php
 
 Insert the following values into your .env
 
@@ -49,7 +49,7 @@ TWILIO_API_KEY=
 TWILIO_API_SECRET=
 ```
 
-See Twilio Video Settings for instructions on how to get these values.
+See Twilio Settings for instructions on how to get these values.
 
 ### Taking care of routing
 
@@ -63,7 +63,9 @@ Behind the scenes, this will register a `POST` route to a controller provided by
 
 ```php
 protected $except = [
-    'webhook/twilio-video',
+    'webhook/twilio-video', //Twilio Video Webhooks
+    'webhook/twilio-voice', //TWilio Voice Webhooks
+    'webhook/twilio-sms', //Twilio SMS Webhooks
 ];
 ```
 
@@ -81,6 +83,21 @@ If you have an existing Twilio account login to your console or sign up here for
 yourdomain.com/webhook/twilio-video
 ```
 
+### Twilio Laravel Roadmap
+
+- [ ] Twilio Voice
+- [x] Twilio SMS
+- [x] Twilio Video
+- [ ] Twilio Fax
+- [ ] Twilio Phone Numbers
+- [ ] Twilio Short Codes
+- [ ] Twilio Chat
+- [ ] Twilio Conversations
+- [ ] Twilio Verify
+- [ ] Twilio Programmable Wireless
+- [ ] Twilio Proxy
+- [ ] Twilio Lookup
+
 ### License
 
-laravel-twilio-video is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+laravel-twilio is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
