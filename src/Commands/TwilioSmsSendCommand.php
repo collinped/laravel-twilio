@@ -54,7 +54,10 @@ class TwilioSmsSendCommand extends Command
 
         $this->line($text);
 
-        $this->twilioSms->message($this->argument('phone'), $text);
+        $this->twilioSms
+            ->to($this->argument('phone'))
+            ->message($text)
+            ->send();
     }
 
     /**

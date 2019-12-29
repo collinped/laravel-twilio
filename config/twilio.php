@@ -91,7 +91,7 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_VIDEO_WEBHOOK', route('twilio.video.webhook'))
+        'webhook' => env('TWILIO_VIDEO_WEBHOOK', route('twilio.video.webhook', null, false))
     ],
 
     /*
@@ -103,7 +103,7 @@ return [
     |
     */
     'sms' => [
-        'from' => '+1233456789',
+        'from' => env('TWILIO_SMS_FROM') ?? config('twilio.from'),
         /*
         |--------------------------------------------------------------------------
         | Default Twilio SMS Webhook/Callback URL
@@ -112,7 +112,7 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_SMS_WEBHOOK', route('twilio.sms.webhook'))
+        'webhook' => env('TWILIO_SMS_WEBHOOK', route('twilio.sms.webhook', null, false))
     ],
 
     /*
@@ -124,7 +124,7 @@ return [
     |
     */
     'voice' => [
-        'from' => '+123456789',
+        'from' => env('TWILIO_VOICE_FROM') ?? config('twilio.from'),
 
         /*
         |--------------------------------------------------------------------------
@@ -134,11 +134,11 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_VOICE_WEBHOOK', route('twilio.voice.webhook'))
+        'webhook' => env('TWILIO_VOICE_WEBHOOK', route('twilio.voice.webhook', null, false))
     ],
 
     'fax' => [
-        'from' => '+123456789',
+        'from' => env('TWILIO_FAX_FROM') ?? config('twilio.from'),
 
         /*
         |--------------------------------------------------------------------------
@@ -148,7 +148,7 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_FAX_WEBHOOK', route('twilio.fax.webhook'))
+        'webhook' => env('TWILIO_FAX_WEBHOOK', route('twilio.fax.webhook', null, false))
     ],
 
     /*

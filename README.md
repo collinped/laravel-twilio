@@ -53,19 +53,23 @@ See Twilio Settings for instructions on how to get these values.
 
 ### Taking care of routing
 
-Finally, let's take care of the routing. At the app that sends webhooks, you probably configure an URL where you want your webhook requests to be sent. In the routes file of your app (web.php), you must pass that route to `Route::post`. Here's an example:
+Finally, let's take care of the routing. At the app that sends webhooks, you probably configure an URL where you want your webhook requests to be sent. In the routes file of your app (web.php), you must pass that route to `Route::post` or `Route::get` depending on your specified method. Here's an example:
 
 ```php
-Route::post('webhook/twilio-video', 'WebhookController@handleWebhook')->name('twilio-video.webhook');
+Route::post('webhook/twilio-video', 'TwilioVideoWebhookController@handleWebhook')->name('twilio.video.webhook');
+Route::post('webhook/twilio-voice', 'TwilioVoiceWebhookController@handleWebhook')->name('twilio.voice.webhook');
+Route::post('webhook/twilio-sms', 'TwilioSmsWebhookController@handleWebhook')->name('twilio.sms.webhook');
+Route::post('webhook/twilio-fax', 'TwilioFaxWebhookController@handleWebhook')->name('twilio.fax.webhook');
 ```
 
-Behind the scenes, this will register a `POST` route to a controller provided by this package. Because the app that sends webhooks to you has no way of getting a csrf-token, you must add that route to the `except` array of the `VerifyCsrfToken` middleware:
+Behind the scenes, this will register a `POST` or `GET` route to a controller provided by this package. Because the app that sends webhooks to you has no way of getting a csrf-token, you must add that route to the `except` array of the `VerifyCsrfToken` middleware:
 
 ```php
 protected $except = [
     'webhook/twilio-video', //Twilio Video Webhooks
     'webhook/twilio-voice', //TWilio Voice Webhooks
     'webhook/twilio-sms', //Twilio SMS Webhooks
+    'webhook/twilio-fax', //Twilio Fax Webhooks
 ];
 ```
 
@@ -83,7 +87,7 @@ If you have an existing Twilio account login to your console or sign up here for
 yourdomain.com/webhook/twilio-video
 ```
 
-### Twilio Laravel Roadmap
+### Laravel Twilio Roadmap
 
 - [ ] Twilio Voice
 - [x] Twilio SMS
@@ -93,7 +97,7 @@ yourdomain.com/webhook/twilio-video
 - [ ] Twilio Short Codes
 - [ ] Twilio Chat
 - [ ] Twilio Conversations
-- [ ] Twilio Verify
+- [x] Twilio Verify
 - [ ] Twilio Programmable Wireless
 - [ ] Twilio Proxy
 - [ ] Twilio Lookup
