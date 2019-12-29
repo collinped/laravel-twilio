@@ -5,6 +5,7 @@ namespace Collinped\Twilio;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class TwilioVideo extends Twilio
 {

@@ -101,6 +101,8 @@ yourdomain.com/webhook/twilio-video
 - [ ] Twilio Programmable Wireless
 - [ ] Twilio Proxy
 - [ ] Twilio Lookup
+- [ ] Twilio Flex
+- [ ] Twilio Assistant
 
 ### License
 
