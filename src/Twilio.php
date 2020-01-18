@@ -47,14 +47,14 @@ class Twilio
     }
 
     /**
-     * Indicates if Twilio Video routes will be registered.
+     * Indicates if Twilio routes will be registered.
      *
      * @var bool
      */
     public static $registersRoutes = true;
 
     /**
-     * Configure Twilio Video to not register its routes.
+     * Configure Twilio to not register its routes.
      *
      * @return static
      */
@@ -74,5 +74,10 @@ class Twilio
             return $this->twilio;
         }
         return $this->twilio = new TwilioService($this->accountSid, $this->authToken);
+    }
+
+    public function sdk()
+    {
+        return $this->twilio();
     }
 }

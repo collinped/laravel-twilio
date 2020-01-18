@@ -1,8 +1,7 @@
 <?php
-namespace Aloha\Twilio\Commands;
+namespace Collinped\Twilio\Commands;
 
-use Collinped\TwilioVideo\Twilio;
-use Collinped\TwilioVideo\TwilioVideoInterface;
+use Collinped\Twilio\Twilio;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,7 +13,7 @@ class TwilioVideoRoomCommand extends Command
      *
      * @var string
      */
-    protected $name = 'twilio:video';
+    protected $name = 'twilio:video-room';
 
     /**
      * The console command description.

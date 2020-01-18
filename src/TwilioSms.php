@@ -41,6 +41,11 @@ class TwilioSms extends Twilio
      */
     protected $feedback = false;
 
+    public function all()
+    {
+
+    }
+
     /**
      * Send the Twilio Message.
      *
@@ -66,15 +71,10 @@ class TwilioSms extends Twilio
         return $this->twilio->messages->create($to, $params);
     }
 
-    public function fetchMessage($messageSid)
+    public function find($messageSid)
     {
         return $this->twilio->messages($messageSid)
                 ->fetch();
-    }
-
-    public function all()
-    {
-
     }
 
     public function redact($messageSid)

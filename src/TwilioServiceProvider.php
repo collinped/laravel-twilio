@@ -2,10 +2,9 @@
 
 namespace Collinped\Twilio;
 
-use Aloha\Twilio\Commands\TwilioVideoRoomCommand;
+use Collinped\Twilio\Commands\TwilioVideoRoomCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-
 
 class TwilioServiceProvider extends ServiceProvider
 {
@@ -32,14 +31,14 @@ class TwilioServiceProvider extends ServiceProvider
     }
 
     /**
-     * Setup the configuration for Cashier.
+     * Setup the configuration for Twilio.
      *
      * @return void
      */
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../config/twilio.php', 'twilio'
+            __DIR__ . '/../config/twilio.php', 'twilio'
         );
     }
 
@@ -56,7 +55,7 @@ class TwilioServiceProvider extends ServiceProvider
                 'namespace' => 'Collinped\Twilio\Http\Controllers',
                 'as' => 'twilio.',
             ], function () {
-                $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
             });
         }
     }
@@ -80,7 +79,7 @@ class TwilioServiceProvider extends ServiceProvider
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/twilio.php' => $this->app->configPath('twilio.php'),
+                __DIR__ . '/../config/twilio.php' => $this->app->configPath('twilio.php'),
             ], 'twilio-config');
         }
     }
