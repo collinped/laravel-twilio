@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
  * Class TwilioVideoRoomCallback
  * @package App\Http\Controllers\Callback
  */
-class TwilioVoiceWebhookController extends Controller
+class TwilioFaxWebhookController extends Controller
 {
     use TwilioWebhook;
 
