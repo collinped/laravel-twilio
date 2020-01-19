@@ -45,9 +45,13 @@ class TwilioVideo extends Twilio
         return response()->json($rooms);
     }
 
-    public function get($roomIdentifier)
+    public function get($roomIdentifier = null)
     {
-        return $this->twilio->video->v1->rooms($roomIdentifier)
+        if ($roomIdentifier) {
+            $this->room = $roomIdentifier;
+        }
+
+        return $this->twilio->video->v1->rooms($this->room)
             ->fetch();
     }
 
