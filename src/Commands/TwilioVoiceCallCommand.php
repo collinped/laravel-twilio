@@ -1,10 +1,8 @@
 <?php
 namespace Aloha\Twilio\Commands;
 
-use Aloha\Twilio\TwilioInterface;
+use Collinped\Twilio\TwilioVoice;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class TwilioVoiceCallCommand extends Command
 {
@@ -13,8 +11,10 @@ class TwilioVoiceCallCommand extends Command
      *
      * @var string
      */
-    protected $name = 'twilio:call';
-
+    protected $name = 'twilio:call
+                       {to : Phone number to call}
+                       {from? : Twilio number to call from}
+                       {message? : The content of the voice message}';
     /**
      * The console command description.
      *
@@ -23,20 +23,19 @@ class TwilioVoiceCallCommand extends Command
     protected $description = 'Twilio command to test Twilio Call API Integration.';
 
     /**
-     * @var TwilioInterface
+     * @var TwilioVoice
      */
-    protected $twilio;
+    protected $twilioVoice;
 
     /**
      * Create a new command instance.
      *
-     * @param TwilioInterface $twilio
      */
-    public function __construct(TwilioInterface $twilio)
+    public function __construct(TwilioVoice $twilioVoice)
     {
         parent::__construct();
 
-        $this->twilio = $twilio;
+        $this->twilioVoice = $twilioVoice;
     }
 
     /**
@@ -55,7 +54,7 @@ class TwilioVoiceCallCommand extends Command
             $url = 'http://demo.twilio.com/docs/voice.xml';
         }
 
-        $this->twilio->call($this->argument('phone'), $url, [], $from);
+        $this->twilioVoice->call($this->argument('phone'), $url, [], $from);
     }
 
     /**
@@ -64,30 +63,5 @@ class TwilioVoiceCallCommand extends Command
     public function handle()
     {
         return $this->fire();
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['phone', InputArgument::REQUIRED, 'The phone number that will receive a test message.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['url', null, InputOption::VALUE_OPTIONAL, 'Optional url that will be used to fetch xml for call.', null],
-            ['from', null, InputOption::VALUE_OPTIONAL, 'Optional from number that will be used.', null],
-        ];
     }
 }

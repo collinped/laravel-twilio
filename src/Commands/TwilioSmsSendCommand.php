@@ -3,8 +3,6 @@ namespace Aloha\Twilio\Commands;
 
 use Collinped\Twilio\TwilioSms;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class TwilioSmsSendCommand extends Command
 {
@@ -13,7 +11,10 @@ class TwilioSmsSendCommand extends Command
      *
      * @var string
      */
-    protected $name = 'twilio:sms';
+    protected $signature = 'twilio:sms
+                            {to : Phone number to send the SMS message to}
+                            {from? : Twilio number to send the SMS message from}
+                            {message? : The content of the message}';
 
     /**
      * The console command description.
@@ -42,21 +43,24 @@ class TwilioSmsSendCommand extends Command
      */
     public function fire()
     {
-        $this->line('Sending SMS via Twilio to: '.$this->argument('phone'));
+        $fromTwilioNumber = ($this->argument('from') ?? config('twilio.sms.from'));
+
+        $this->line('Sending SMS via Twilio to: '.$this->argument('to'). ' from: ' . $fromTwilioNumber);
 
         // Grab the text option if specified
-        $text = $this->option('text');
+        $message = $this->argument('message');
 
         // If we havent specified a message, setup a default one
-        if (is_null($text)) {
-            $text = 'This is a test message sent from the artisan console';
+        if (is_null($message)) {
+            $message = 'This is a test message sent from the artisan console';
         }
 
-        $this->line($text);
+        $this->line($message);
 
         $this->twilioSms
-            ->to($this->argument('phone'))
-            ->message($text)
+            ->to($this->argument('to'))
+            ->from($fromTwilioNumber)
+            ->message($message)
             ->send();
     }
 
@@ -66,29 +70,5 @@ class TwilioSmsSendCommand extends Command
     public function handle()
     {
         return $this->fire();
-    }
-
-    /**
-     * Get the console command arguments.
-     *
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['phone', InputArgument::REQUIRED, 'The phone number that will receive a test message.'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     *
-     * @return array
-     */
-    protected function getOptions()
-    {
-        return [
-            ['text', null, InputOption::VALUE_OPTIONAL, 'Optional message that will be sent.', null],
-        ];
     }
 }
