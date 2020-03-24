@@ -1,5 +1,5 @@
 <?php
-namespace Aloha\Twilio\Commands;
+namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\TwilioSms;
 use Illuminate\Console\Command;

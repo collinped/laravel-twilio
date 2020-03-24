@@ -41,6 +41,15 @@ class TwilioSms extends Twilio
      */
     protected $feedback = false;
 
+    /**
+     * @var Twilio
+     */
+    protected $twilio;
+
+    public function __construct(Twilio $twilio) {
+        $this->twilio = $twilio->sdk();
+    }
+
     public function all()
     {
 

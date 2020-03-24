@@ -27,6 +27,10 @@ trait TwilioWebhook {
      */
     public function handleWebhook(Request $request)
     {
+//        $request->validate([
+//            'StatusCallbackEvent' => 'required'
+//        ]);
+
         $payload = $request->all();
         $method = 'handle'.Str::studly($payload['StatusCallbackEvent']);
 

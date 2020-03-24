@@ -2,12 +2,19 @@
 
 namespace Collinped\Twilio;
 
-use Collinped\Twilio\Commands\TwilioVideoRoomCommand;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Support\DeferrableProvider;
 
-class TwilioServiceProvider extends ServiceProvider
+class TwilioServiceProvider extends ServiceProvider implements DeferrableProvider
 {
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = true;
+
     /**
      * Bootstrap any package services.
      *
@@ -16,8 +23,16 @@ class TwilioServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerRoutes();
-        $this->registerCommands();
-        $this->registerPublishing();
+
+        if ($this->app->runningInConsole()) {
+            $this->registerPublishing();
+            $this->commands([
+                Console\TwilioBuyPhoneNumberCommand::class,
+                Console\TwilioSmsSendCommand::class,
+                Console\TwilioAddressCommand::class,
+                Console\TwilioVoiceVerifyCommand::class,
+            ]);
+        }
     }
 
     /**
@@ -28,6 +43,12 @@ class TwilioServiceProvider extends ServiceProvider
     public function register()
     {
         $this->configure();
+        $this->app->singleton('Collinped\Twilio\Twilio', function ($app) {
+            $config = $app['config']['twilio'];
+            return new Twilio($config);
+        });
+
+        //$this->app->alias('twilio', Twilio::class);
     }
 
     /**
@@ -49,25 +70,17 @@ class TwilioServiceProvider extends ServiceProvider
      */
     protected function registerRoutes()
     {
-        if (Twilio::$registersRoutes) {
-            Route::group([
-                'prefix' => config('twilio.path'),
-                'namespace' => 'Collinped\Twilio\Http\Controllers',
-                'as' => 'twilio.',
-            ], function () {
-                $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
-            });
-        }
-    }
-
-    /**
-     * Register the package commands.
-     *
-     * @return void
-     */
-    protected function registerCommands()
-    {
-        $this->app->singleton('twilio.video.room', TwilioVideoRoomCommand::class);
+//        if (!$this->app->routesAreCached()) {
+//            if (Twilio::$registersRoutes) {
+//                Route::group([
+//                    //'prefix' => config('twilio.path'),
+//                    'namespace' => 'Collinped\Twilio\Http\Controllers',
+//                    'as' => 'twilio.',
+//                ], function () {
+//                    $this->loadRoutesFrom(__DIR__ .'/../routes/web.php');
+//                });
+//            }
+//        }
     }
 
     /**
@@ -80,7 +93,19 @@ class TwilioServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__ . '/../config/twilio.php' => $this->app->configPath('twilio.php'),
-            ], 'twilio-config');
+            ], 'config');
         }
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return [
+            'Collinped\Twilio\Twilio',
+        ];
     }
 }

@@ -81,7 +81,7 @@ return [
         | The default video room type that will be created
         |
         */
-        'room_type' => 'peer-to-peer',
+        'room_type' => env('TWILIO_VIDEO_DEFAULT_ROOM_TYPE', 'peer-to-peer'),
 
         /*
         |--------------------------------------------------------------------------
@@ -91,7 +91,8 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_VIDEO_WEBHOOK', route('twilio.video.webhook', null, false))
+        //'webhook' => env('TWILIO_VIDEO_WEBHOOK', (\Route::has('twilio.video.webhook') ? route('twilio.video.webhook', null, false) : null))
+        'webhook' => 'webhook/twilio-video'
     ],
 
     /*
@@ -112,7 +113,8 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_SMS_WEBHOOK', route('twilio.sms.webhook', null, false))
+        //'webhook' => env('TWILIO_SMS_WEBHOOK', (\Route::has('twilio.sms.webhook') ? route('twilio.sms.webhook', null, false) : null))
+        'webhook' => 'webhook/twilio-sms'
     ],
 
     /*
@@ -134,7 +136,8 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_VOICE_WEBHOOK', route('twilio.voice.webhook', null, false))
+        //'webhook' => env('TWILIO_VOICE_WEBHOOK', (\Route::has('twilio.voice.webhook') ? route('twilio.voice.webhook', null, false) : null ))
+        'webhook' => 'webhook/twilio-voice'
     ],
 
     'fax' => [
@@ -148,7 +151,8 @@ return [
         | The default callback URL that will be used
         |
         */
-        'webhook' => env('TWILIO_FAX_WEBHOOK', route('twilio.fax.webhook', null, false))
+        //'webhook' => env('TWILIO_FAX_WEBHOOK', (\Route::has('twilio.fax.webhook') ? route('twilio.fax.webhook', null, false) : null ))
+        'webhook' => 'webhook/twilio-fax'
     ],
 
     /*

@@ -3,7 +3,8 @@
 
 namespace Collinped\Twilio;
 
-use Twilio\Rest\Client as TwilioService;
+use Twilio\Exceptions\ConfigurationException;
+use Twilio\Rest\Client;
 
 class Twilio
 {
@@ -28,22 +29,27 @@ class Twilio
     protected $apiSecret;
 
     /**
-     * @var bool
+     * @var Client
      */
-    protected $sslVerify;
+    protected $client;
 
     /**
      * @var \Twilio\Rest\Client
      */
     protected $twilio;
 
-    public function __construct($accountSid, $authToken, $sslVerify, $apiKey, $apiSecret)
+    public function __construct($config)
     {
-        $this->accountSid = $accountSid;
-        $this->authToken = $authToken;
-        $this->apiKey = $apiKey;
-        $this->apiSecret = $apiSecret;
-        $this->sslVerify = $sslVerify;
+//        $this->accountSid = $accountSid;
+//        $this->authToken = $authToken;
+//        $this->apiKey = $apiKey;
+//        $this->apiSecret = $apiSecret;
+
+        try {
+            $this->client = new Client($config['account_sid'], $config['auth_token']);
+        } catch (ConfigurationException $e) {
+            dd($e);
+        }
     }
 
     /**
@@ -64,20 +70,8 @@ class Twilio
         return new static;
     }
 
-    /**
-     * @return \Twilio\Rest\Client
-     * @throws \Twilio\Exceptions\ConfigurationException
-     */
-    public function twilio()
-    {
-        if ($this->twilio) {
-            return $this->twilio;
-        }
-        return $this->twilio = new TwilioService($this->accountSid, $this->authToken);
-    }
-
     public function sdk()
     {
-        return $this->twilio();
+        return $this->client;
     }
 }

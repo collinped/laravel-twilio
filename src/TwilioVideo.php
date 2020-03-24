@@ -19,6 +19,26 @@ class TwilioVideo extends Twilio
     protected $roomName;
     protected $roomSid;
 
+    /**
+     * @var Twilio
+     */
+    protected $twilio;
+
+    public function __construct(Twilio $twilio) {
+        $this->twilio = $twilio->sdk();
+    }
+
+    public function exists($params = [])
+    {
+        $videoRoom = $this->twilio->video->v1->rooms->read($params);
+
+        if (!empty($videoRoom)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function all(array $params = [], $limit = null, $page= null)
     {
         $allowedStatuses = [
@@ -65,6 +85,11 @@ class TwilioVideo extends Twilio
         if ($this->roomType !== 'peer-to-peer') {
             $params['recordParticipantsOnConnect'] = $this->shouldRecord;
         }
+        if ($this->statusCallback) {
+            $params['statusCallback'] = $this->statusCallback;
+        }
+
+        $params['enableTurn'] = true;
 
         return $this->twilio->video->v1->rooms
             ->create($params);
