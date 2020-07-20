@@ -40,11 +40,6 @@ class Twilio
 
     public function __construct($config)
     {
-//        $this->accountSid = $accountSid;
-//        $this->authToken = $authToken;
-//        $this->apiKey = $apiKey;
-//        $this->apiSecret = $apiSecret;
-
         try {
             $this->client = new Client($config['account_sid'], $config['auth_token']);
         } catch (ConfigurationException $e) {

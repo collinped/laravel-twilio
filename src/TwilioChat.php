@@ -11,10 +11,10 @@ class TwilioChat
 {
     //https://www.twilio.com/docs/chat/tutorials/chat-application-php-laravel
 
-    protected $serviceSid;
-    protected $appName;
-    protected $deviceId;
-    protected $identity;
+    protected string $serviceSid;
+    protected string $appName;
+    protected string $deviceId;
+    protected string $identity;
 
     public function generate(Request $request, ChatGrant $chatGrant)
     {

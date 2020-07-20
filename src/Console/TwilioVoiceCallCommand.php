@@ -25,11 +25,11 @@ class TwilioVoiceCallCommand extends Command
     /**
      * @var TwilioVoice
      */
-    protected $twilioVoice;
+    protected TwilioVoice $twilioVoice;
 
     /**
      * Create a new command instance.
-     *
+     * @param TwilioVoice $twilioVoice
      */
     public function __construct(TwilioVoice $twilioVoice)
     {

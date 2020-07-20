@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
 
-class TwilioServiceProvider extends ServiceProvider implements DeferrableProvider
+class TwilioAccessTokenServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -22,16 +22,12 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     public function boot()
     {
-        $this->registerRoutes();
+        // $this->registerRoutes();
 
         if ($this->app->runningInConsole()) {
             $this->registerPublishing();
             $this->commands([
-                Console\TwilioBuyPhoneNumberCommand::class,
-                Console\TwilioSmsSendCommand::class,
-                Console\TwilioAddressCommand::class,
-                Console\TwilioSubaccountCommand::class,
-                Console\TwilioVoiceVerifyCommand::class,
+                Console\TwilioAccessTokenCommand::class,
             ]);
         }
     }
@@ -44,9 +40,9 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     public function register()
     {
         $this->configure();
-        $this->app->singleton('Collinped\Twilio\Twilio', function ($app) {
+        $this->app->singleton('Collinped\Twilio\TwilioAccessToken', function ($app) {
             $config = $app['config']['twilio'];
-            return new Twilio($config);
+            return new TwilioAccessToken($config);
         });
 
         //$this->app->alias('twilio', Twilio::class);
@@ -106,7 +102,7 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     public function provides()
     {
         return [
-            'Collinped\Twilio\Twilio',
+            'Collinped\Twilio\TwilioAccessToken',
         ];
     }
 }
