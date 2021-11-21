@@ -39,6 +39,7 @@ class TwilioBuyPhoneNumberCommand extends Command
     public function __construct(Twilio $twilio)
     {
         parent::__construct();
+
         $this->twilio = $twilio;
     }
 
@@ -55,16 +56,14 @@ class TwilioBuyPhoneNumberCommand extends Command
                 if ($this->option('areacode')) {
                     $attributes['areaCode'] = $this->option('areacode');
                 }
-                $twilioPhoneNumbers = $this->twilio->sdk()->availablePhoneNumbers($country)
-                    ->local
-                    ->read($attributes, 20);
-            } elseif ($this->option('toll')) {
-                $twilioPhoneNumbers = $this->twilio->sdk()->availablePhoneNumbers($country)
-                    ->tollFree
-                    ->read([], 20);
-            }else{
-                $twilioPhoneNumbers = $this->twilio->sdk()->availablePhoneNumbers($country)
-                    ->fetch();
+                $twilioPhoneNumbers = $this->twilio->phoneNumber()
+                    ->region($country)
+                    ->search($attributes);
+            } else {
+                $twilioPhoneNumbers = $this->twilio->phoneNumber()
+                    ->region($country)
+                    ->tollFree()
+                    ->search();
             }
 
             $twilioPhoneNumbers = collect($twilioPhoneNumbers);
@@ -78,7 +77,7 @@ class TwilioBuyPhoneNumberCommand extends Command
                 'What phone number would you like to buy?',
                 $availableNumbers
             );
-        }else{
+        } else {
             $selectedPhoneNumber = $this->argument('number');
         }
 
@@ -111,8 +110,6 @@ class TwilioBuyPhoneNumberCommand extends Command
 
             $this->info('Successfully purchased phone number: ' . $selectedPhoneNumber);
         }
-
-
     }
 
     /**

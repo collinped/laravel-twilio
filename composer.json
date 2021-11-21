@@ -11,15 +11,20 @@
         }
     ],
     "require": {
-        "php": ">=7.2.0",
+        "php": "^8.0",
         "ext-json": "*",
-        "guzzlehttp/guzzle": "^6.5",
-        "illuminate/support": "^6.8",
+        "guzzlehttp/guzzle": "^7.0.1",
+        "illuminate/contracts": "^8.52",
         "twilio/sdk": "^6.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "phpunit/phpunit": "^8.0"
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "brianium/paratest": "^6.2",
+        "nunomaduro/collision": "^5.3",
+        "orchestra/testbench": "^6.15",
+        "phpunit/phpunit": "^9.3",
+        "spatie/laravel-ray": "^1.23",
+        "vimeo/psalm": "^4.8"
     },
     "homepage":"https://github.com/collinped/laravel-twilio",
     "autoload": {
@@ -27,9 +32,17 @@
             "Collinped\\Twilio\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Collinped\\Twilio\\Tests\\": "tests"
+        }
+    },
     "scripts": {
-        "tests": "phpunit",
-        "lint": "php-cs-fixer fix --allow-risky=yes"
+        "lint": "php-cs-fixer fix --allow-risky=yes",
+        "psalm": "vendor/bin/psalm",
+        "test": "vendor/bin/phpunit",
+        "testbench": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html coverage"
     },
     "config": {
         "sort-packages": true

@@ -1,13 +1,63 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
+use Twilio\Rest\Api\V2010\Account\CallInstance;
+use Twilio\Rest\Client;
+use Twilio\TwiML\TwiML;
+use Twilio\TwiML\VoiceResponse;
 
-class TwilioVoice extends Twilio
+class TwilioVoice
 {
-    const STATUS_CANCELED = 'canceled';
-    const STATUS_COMPLETED = 'completed';
+    public const STATUS_INITIATED = 'initiated';
+    public const STATUS_RINGING = 'ringing';
+    public const STATUS_ANSWERED = 'answered';
+    public const STATUS_COMPLETED = 'completed';
+
+    public const RECORDING_STATUS_ABSENT = 'absent';
+    public const RECORDING_STATUS_IN_PROGRESS = 'in-progress';
+    public const RECORDING_STATUS_COMPLETED = 'completed';
+
+    /**
+     * @var null|string
+     */
+    protected ?string $method = null;
+
+    /**
+     * @var null|string
+     */
+    protected ?string $status = null;
+
+    /**
+     * @var null|string
+     */
+    protected ?string $fallbackUrl = null;
+
+    /**
+     * @var null|string
+     */
+    protected ?string $fallbackMethod = null;
+
+    /**
+     * @var null|string
+     */
+    protected ?string $from = null;
+
+    private string $statusCallbackMethod = 'POST';
+
+    private ?array $statusCallbackEvents = null;
+
+    private ?string $statusCallbackUrl = null;
+
+    private \Twilio\Rest\Client $twilio;
+
+    /**
+     * @param Client $twilio
+     */
+    public function __construct(Client $twilio)
+    {
+        $this->twilio = $twilio;
+    }
 
     /**
      * @param string $to
@@ -18,48 +68,55 @@ class TwilioVoice extends Twilio
      *
      * @return \Twilio\Rest\Api\V2010\Account\CallInstance
      */
-    public function call($to, $message, array $params = [])
+    public function callWithMessage(string $to, $message, array $params = []): CallInstance
     {
         if (is_callable($message)) {
-            $query = http_build_query([
-                'Twiml' => $this->twiml($message),
-            ]);
-            $message = 'https://twimlets.com/echo?'.$query;
+            $message = $this->twiml($message);
         }
 
-        $params['url'] = $message;
-        return $this->twilio()->calls->create(
+        if ($message instanceof TwiML) {
+            $params['twiml'] = (string) $message;
+        } else {
+            $params['url'] = $message;
+        }
+
+        return $this->twilio->calls->create(
             $to,
             $this->from,
             $params
         );
     }
 
-    /**
-     * @var null|string
-     */
-    public $method = null;
-    /**
-     * @var null|string
-     */
-    public $status = null;
-    /**
-     * @var null|string
-     */
-    public $fallbackUrl = null;
-    /**
-     * @var null|string
-     */
-    public $fallbackMethod = null;
+    private function twiml(callable $callback): TwiML
+    {
+        $message = new VoiceResponse();
+
+        call_user_func($callback, $message);
+
+        return $message;
+    }
+
+    public function sendToVoicemail(string $message = 'Please leave a message after the beep.'): VoiceResponse
+    {
+        $response = new VoiceResponse();
+
+        $response->say($message);
+        $response->record();
+        $response->hangup();
+
+        return $response;
+    }
+
     /**
      * Set the message url.
      *
      * @param  string $url
      * @return $this
      */
-    public function url($url)
+    public function url(string $url): static
     {
-        $this->content = $url;
+        $this->url = $url;
+
         return $this;
     }
     /**
@@ -68,9 +125,10 @@ class TwilioVoice extends Twilio
      * @param  string $method
      * @return $this
      */
-    public function method($method)
+    public function method(string $method): static
     {
         $this->method = $method;
+
         return $this;
     }
     /**
@@ -79,9 +137,10 @@ class TwilioVoice extends Twilio
      * @param  string $status
      * @return $this
      */
-    public function status($status)
+    public function status($status): static
     {
         $this->status = $status;
+
         return $this;
     }
     /**
@@ -90,9 +149,10 @@ class TwilioVoice extends Twilio
      * @param string $fallbackUrl
      * @return $this
      */
-    public function fallbackUrl($fallbackUrl)
+    public function fallbackUrl(string $fallbackUrl): static
     {
         $this->fallbackUrl = $fallbackUrl;
+
         return $this;
     }
     /**
@@ -101,9 +161,37 @@ class TwilioVoice extends Twilio
      * @param string $fallbackMethod
      * @return $this
      */
-    public function fallbackMethod($fallbackMethod)
+    public function fallbackMethod(string $fallbackMethod): static
     {
         $this->fallbackMethod = $fallbackMethod;
+
+        return $this;
+    }
+
+    public function statusCallbackUrl(string $statusCallbackUrl): static
+    {
+        $this->statusCallbackUrl = $statusCallbackUrl;
+
+        return $this;
+    }
+
+    /**
+     * Values include initiated, ringing, answered, completed
+     *
+     * @param array $statusCallbackEvents
+     * @return $this
+     */
+    public function statusCallbackEvent(array $statusCallbackEvents): static
+    {
+        $this->statusCallbackEvents = $statusCallbackEvents;
+
+        return $this;
+    }
+
+    public function statusCallbackMethod($statusCallbackMethod): static
+    {
+        $this->statusCallbackMethod = $statusCallbackMethod;
+
         return $this;
     }
 }

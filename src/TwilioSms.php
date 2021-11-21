@@ -3,8 +3,9 @@
 
 namespace Collinped\Twilio;
 
+use Twilio\Rest\Client;
 
-class TwilioSms extends Twilio
+class TwilioSms
 {
     /**
      * @var string
@@ -39,27 +40,43 @@ class TwilioSms extends Twilio
     /**
      * @var bool
      */
-    protected $feedback = false;
+    protected $facebook = false;
 
     /**
-     * @var Twilio
+     * @var bool
      */
-    protected $twilio;
+    protected $facebookPage = null;
 
-    public function __construct(Twilio $twilio) {
-        $this->twilio = $twilio->sdk();
+    /**
+     * @var bool
+     */
+    protected $facebookMessengerId = null;
+
+    /**
+     * @var bool
+     */
+    protected $feedback = false;
+
+    private \Twilio\Rest\Client $twilio;
+
+    /**
+     * @param Client $twilio
+     */
+    public function __construct(Client $twilio)
+    {
+        $this->twilio = $twilio;
     }
 
     public function all()
     {
-
+        return 'all';
     }
 
     /**
      * Send the Twilio Message.
      *
      * @param array $params
-     * @return \Twilio\Rest\Api\V2010\Account\MessageInstance
+     * @return string
      * @throws \Twilio\Exceptions\TwilioException
      */
     public function send($params = [])
@@ -68,7 +85,7 @@ class TwilioSms extends Twilio
 
         $params['from'] = ($this->whatsApp ? 'whatsapp:' . $this->from : $this->from);
         $params['body'] = $params['message'] ?? $this->message ?? null;
-        //Pop an error because an body is required
+        //Pop an error because a body is required
         $params['statusCallback'] = $params['statusCallback'] ?? $this->statusCallback ?? null;
 
         if (!empty($media)) {
@@ -92,7 +109,7 @@ class TwilioSms extends Twilio
                 ->update(["body" => ""]);
     }
 
-    public function delete($messageSid)
+    public function delete($messageSid): bool
     {
         return $this->twilio->messages($messageSid)
             ->delete();
@@ -105,14 +122,14 @@ class TwilioSms extends Twilio
                 ->fetch();
     }
 
-    public function readMedia($messageSid)
+    public function readMedia($messageSid): array
     {
         return $this->twilio->messages($messageSid)
                 ->media
                 ->read(array(), 20);
     }
 
-    public function deleteMedia($messageSid, $mediaSid)
+    public function deleteMedia($messageSid, $mediaSid): bool
     {
         return $this->twilio->messages($messageSid)
             ->media($mediaSid)
@@ -125,7 +142,7 @@ class TwilioSms extends Twilio
      * @param string $phoneNumber
      * @return $this
      */
-    public function to($phoneNumber)
+    public function to(string $phoneNumber): static
     {
         $this->to = $phoneNumber;
 
@@ -198,11 +215,15 @@ class TwilioSms extends Twilio
      *
      * @return $this
      */
-    public function whatsApp()
+    public function withWhatsApp(): static
     {
         $this->whatsApp = true;
 
         return $this;
     }
 
+    public function whatsApp(): static
+    {
+        return $this->withWhatsApp();
+    }
 }

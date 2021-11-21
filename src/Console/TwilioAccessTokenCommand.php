@@ -12,19 +12,19 @@ class TwilioAccessTokenCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'twilio:token';
+    protected string $signature = 'twilio:token';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Twilio command to create a new access token.';
+    protected string $description = 'Twilio command to create a new access token.';
 
     /**
      * @var \Collinped\Twilio\TwilioAccessToken
      */
-    protected $twilioAccessToken;
+    protected TwilioAccessToken $twilioAccessToken;
 
     /**
      * Create a new command instance.
@@ -33,6 +33,7 @@ class TwilioAccessTokenCommand extends Command
     public function __construct(TwilioAccessToken $twilioAccessToken)
     {
         parent::__construct();
+
         $this->twilioAccessToken = $twilioAccessToken;
     }
 

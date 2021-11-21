@@ -3,10 +3,21 @@
 
 namespace Collinped\Twilio;
 
+use Twilio\Rest\Client;
 
-class TwilioConversation extends Twilio
+class TwilioConversation
 {
-    public function create($conversationName)
+    private \Twilio\Rest\Client $twilio;
+
+    /**
+     * @param Client $twilio
+     */
+    public function __construct(Client $twilio)
+    {
+        $this->twilio = $twilio;
+    }
+
+    public function create($conversationName): \Twilio\Rest\Conversations\V1\ConversationInstance
     {
         return $this->twilio->conversations->v1->conversations
             ->create([
@@ -14,13 +25,13 @@ class TwilioConversation extends Twilio
             ]);
     }
 
-    public function get($conversationSid)
+    public function get($conversationSid): \Twilio\Rest\Conversations\V1\ConversationInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
                     ->fetch();
     }
 
-    public function addSmsParticipant($conversationSid, $participantNumber, $twilioPhoneNumber)
+    public function addSmsParticipant($conversationSid, $participantNumber, $twilioPhoneNumber): \Twilio\Rest\Conversations\V1\Conversation\ParticipantInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
                     ->participants
@@ -30,13 +41,35 @@ class TwilioConversation extends Twilio
                     ]);
     }
 
-    public function addChatParticipant($conversationSid, $chatIdentity)
+    public function addChatParticipant($conversationSid, $chatIdentity): \Twilio\Rest\Conversations\V1\Conversation\ParticipantInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
                 ->participants
                 ->create([
                     "identity" => $chatIdentity
                 ]);
+    }
+
+    public function enableReachability($conversationSid)
+    {
+        return $this->twilio->conversations->v1->services($conversationSid)
+            ->configuration()
+            ->update(
+                [
+                    "reachabilityEnabled" => true
+                ]
+            );
+    }
+
+    public function disableReachability($conversationSid)
+    {
+        return $this->twilio->conversations->v1->services($conversationSid)
+            ->configuration()
+            ->update(
+                [
+                    "reachabilityEnabled" => false
+                ]
+            );
     }
 
     //https://www.twilio.com/docs/conversations/api/conversation-webhook-resource

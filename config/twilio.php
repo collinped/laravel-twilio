@@ -30,7 +30,7 @@ return [
     | Your Twilio API Key
     |
     */
-    'api_key' => env('TWILIO_API_KEY'),
+    'api_key' => env('TWILIO_API_KEY_SID'),
 
     /*
     |--------------------------------------------------------------------------
@@ -40,7 +40,7 @@ return [
     | Your Twilio API Secret
     |
     */
-    'api_secret' => env('TWILIO_API_SECRET'),
+    'api_secret' => env('TWILIO_API_KEY_SECRET'),
 
     /*
     |--------------------------------------------------------------------------
@@ -48,10 +48,10 @@ return [
     |--------------------------------------------------------------------------
     |
     | Add a prefix to the routes for the twilio prefixes
-    | Example: {prefix}/webhook/twilio-video
+    | Example: {prefix}/webhook/voice
     |
     */
-    'path' => env('TWILIO_PATH', null),
+    'path' => env('TWILIO_PATH_PREFIX', 'twilio'),
 
     /*
     |--------------------------------------------------------------------------
@@ -92,7 +92,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_VIDEO_WEBHOOK', (\Route::has('twilio.video.webhook') ? route('twilio.video.webhook', null, false) : null))
-        'webhook' => 'webhook/twilio-video'
+        'webhook' => env('TWILIO_VIDEO_WEBHOOK', 'webhook/video')
     ],
 
     /*
@@ -114,7 +114,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_SMS_WEBHOOK', (\Route::has('twilio.sms.webhook') ? route('twilio.sms.webhook', null, false) : null))
-        'webhook' => 'webhook/twilio-sms'
+        'webhook' => 'webhook/sms'
     ],
 
     /*
@@ -137,7 +137,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_VOICE_WEBHOOK', (\Route::has('twilio.voice.webhook') ? route('twilio.voice.webhook', null, false) : null ))
-        'webhook' => 'webhook/twilio-voice'
+        'webhook' => 'webhook/voice'
     ],
 
     'fax' => [

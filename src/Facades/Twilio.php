@@ -10,7 +10,7 @@ class Twilio extends Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'Collinped\Twilio\Twilio';
     }

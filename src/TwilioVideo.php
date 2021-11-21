@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class TwilioVideo extends Twilio
+class TwilioVideo
 {
     protected bool $shouldRecord = false;
     protected string $roomType = 'peer-to-peer';
@@ -16,16 +16,19 @@ class TwilioVideo extends Twilio
     protected string $roomSid;
     protected string $participantSid;
 
-    /**
-     * @var Twilio
-     */
-    protected $twilio;
 
-    public function __construct(Twilio $twilio) {
-        $this->twilio = $twilio->sdk();
+    private \Twilio\Rest\Client $twilio;
+
+    /**
+     * @param \Twilio\Rest\Client $twilio
+     */
+    public function __construct(Client $twilio)
+    {
+        $this->twilio = $twilio;
     }
 
-    public function sdk() {
+    public function sdk(): \Twilio\Rest\Video
+    {
         return $this->twilio->video;
     }
 
@@ -59,7 +62,7 @@ class TwilioVideo extends Twilio
 
         $allRooms = $this->twilio->video->v1->rooms->read($params, $limit, $page);
 
-        $rooms = array_map(function($room) {
+        $rooms = array_map(function ($room) {
             return $room->uniqueName;
         }, $allRooms);
 
@@ -119,7 +122,7 @@ class TwilioVideo extends Twilio
 
     public function updateParticipantRules(array $rules = [])
     {
-        if(empty($rules)) {
+        if (empty($rules)) {
             $rules = [
                 ["type" => "include", "all" => true]
             ];
@@ -324,7 +327,7 @@ class TwilioVideo extends Twilio
         if ($this->roomType !== 'peer-to-peer') {
             // error that peer this is not allowed in this mode
             return $this;
-        }else{
+        } else {
             $this->shouldRecord = true;
         }
 

@@ -7,14 +7,15 @@ use Illuminate\Queue\SerializesModels;
 
 class WebhookHandled
 {
-    use Dispatchable, SerializesModels;
+    use Dispatchable;
+    use SerializesModels;
 
     /**
      * The webhook payload.
      *
      * @var array
      */
-    public $payload;
+    public array $payload;
 
     /**
      * Create a new event instance.

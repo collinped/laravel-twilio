@@ -10,26 +10,26 @@ use Symfony\Component\HttpFoundation\Response;
  * Class TwilioVideoRoomCallback
  * @package App\Http\Controllers\Callback
  */
-class TwilioVoiceWebhookController extends Controller
+class TwilioVoiceRecordingWebhookController extends Controller
 {
     use TwilioWebhookTrait;
 
-    protected function handleInitiated(array $payload): Response
-    {
-        return $this->successMethod($payload);
-    }
-
-    protected function handleRinging(array $payload): Response
-    {
-        return $this->successMethod($payload);
-    }
-
-    protected function handleAnswered(array $payload): Response
+    protected function handleInProgress(array $payload): Response
     {
         return $this->successMethod($payload);
     }
 
     protected function handleCompleted(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleAbsent(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleFailed(array $payload): Response
     {
         return $this->successMethod($payload);
     }
