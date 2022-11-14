@@ -17,7 +17,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-             TwilioServiceProvider::class,
+            TwilioServiceProvider::class,
         ];
     }
 }

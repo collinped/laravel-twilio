@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
 use GuzzleHttp\Client;
@@ -10,17 +9,21 @@ use Illuminate\Support\Str;
 class TwilioVideo
 {
     protected bool $shouldRecord = false;
-    protected string $roomType = 'peer-to-peer';
-    protected ?string $statusCallback = null;
-    protected string $roomName;
-    protected string $roomSid;
-    protected string $participantSid;
 
+    protected string $roomType = 'peer-to-peer';
+
+    protected ?string $statusCallback = null;
+
+    protected string $roomName;
+
+    protected string $roomSid;
+
+    protected string $participantSid;
 
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param \Twilio\Rest\Client $twilio
+     * @param  \Twilio\Rest\Client  $twilio
      */
     public function __construct(Client $twilio)
     {
@@ -36,22 +39,22 @@ class TwilioVideo
     {
         $videoRoom = $this->twilio->video->v1->rooms->read($params);
 
-        if (!empty($videoRoom)) {
+        if (! empty($videoRoom)) {
             return false;
         }
 
         return true;
     }
 
-    public function all(array $params = [], $limit = null, $page= null)
+    public function all(array $params = [], $limit = null, $page = null)
     {
         $allowedStatuses = [
             'in-progress',
-            'completed'
+            'completed',
         ];
 
         if (isset($params['status'])) {
-            if (!in_array($params['status'], $allowedStatuses)) {
+            if (! in_array($params['status'], $allowedStatuses)) {
                 $params['status'] = null;
             }
         }
@@ -102,7 +105,7 @@ class TwilioVideo
     public function complete($roomSid)
     {
         return $this->twilio->video->v1->rooms($roomSid)
-            ->update("completed");
+            ->update('completed');
     }
 
     public function getParticipant()
@@ -124,7 +127,7 @@ class TwilioVideo
     {
         if (empty($rules)) {
             $rules = [
-                ["type" => "include", "all" => true]
+                ['type' => 'include', 'all' => true],
             ];
         }
 
@@ -160,7 +163,7 @@ class TwilioVideo
             ->rooms($this->roomSid)
             ->participants($this->participantSid)
             ->update([
-                "status" => "disconnected"
+                'status' => 'disconnected',
             ]);
     }
 
@@ -171,7 +174,7 @@ class TwilioVideo
 //        }
         return $this->twilio->video->v1->rooms($roomSid)
             ->participants->read([
-                "status" => $status
+                'status' => $status,
             ]);
     }
 
@@ -186,11 +189,11 @@ class TwilioVideo
     {
         $client = new Client();
         $uri = "https://video.twilio.com/v1/Recordings/$recordingSid/Media";
-        $response = $client->request("GET", $uri);
-        $mediaLocation = $response->getContent()["redirect_to"];
+        $response = $client->request('GET', $uri);
+        $mediaLocation = $response->getContent()['redirect_to'];
         $media_content = file_get_contents($mediaLocation);
-        Storage::disk('local')->put($recordingSid . '.mkv', $media_content);
-        $path = Storage::disk('local')->url('app/' . $recordingSid . '.mkv');
+        Storage::disk('local')->put($recordingSid.'.mkv', $media_content);
+        $path = Storage::disk('local')->url('app/'.$recordingSid.'.mkv');
 
         return response()->download($path);
     }
@@ -218,7 +221,7 @@ class TwilioVideo
      * https://www.twilio.com/docs/video/api/encrypted-recordings
      *
      * @param $name
-     * @param array $settings
+     * @param  array  $settings
      * @return mixed
      */
     public function setAwsRecordingSettings($name, $settings = [])
@@ -231,7 +234,7 @@ class TwilioVideo
     {
         return $this->twilio->video->compositions
             ->read([
-                'roomSid' => $this->roomSid
+                'roomSid' => $this->roomSid,
             ]);
     }
 
@@ -242,6 +245,7 @@ class TwilioVideo
         if ($this->roomSid) {
             $compositionArray['roomSid'] = $this->roomSid;
         }
+
         return $this->twilio->video->compositions
             ->read($compositionArray);
     }
@@ -257,13 +261,13 @@ class TwilioVideo
     {
         return $this->twilio->video->compositions->create($this->roomSid, [
             'audioSources' => ($includeAllAudio ? '*' : $this->participantSid),
-            'videoLayout' =>  [
+            'videoLayout' => [
                 'single' => [
-                    'video_sources' => [$this->participantSid]
-                ]
+                    'video_sources' => [$this->participantSid],
+                ],
             ],
             'statusCallback' => $this->statusCallback,
-            'format' => 'mp4'
+            'format' => 'mp4',
         ]);
     }
 
@@ -271,13 +275,13 @@ class TwilioVideo
     {
         return $this->twilio->video->compositions->create($this->roomSid, [
             'audioSources' => '*',
-            'videoLayout' =>  [
+            'videoLayout' => [
                 'grid' => [
-                    'video_sources' => ['*']
-                ]
+                    'video_sources' => ['*'],
+                ],
             ],
             'statusCallback' => $this->statusCallback,
-            'format' => 'mp4'
+            'format' => 'mp4',
         ]);
     }
 
@@ -305,7 +309,7 @@ class TwilioVideo
     /**
      * Set the status callback.
      *
-     * @param string $statusCallback
+     * @param  string  $statusCallback
      * @return $this
      */
     public function statusCallback($statusCallback)

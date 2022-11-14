@@ -48,7 +48,7 @@ class TwilioVideoWebhookControllerTest extends TestCase
             'track-disabled',
             'recording-started',
             'recording-completed',
-            'recording-failed'
+            'recording-failed',
         ];
 
         foreach ($validStatuses as $validStatus) {

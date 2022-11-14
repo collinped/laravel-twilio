@@ -12,7 +12,8 @@ class TwilioRequestValidator
      * Handle an incoming request.
      *
      * @link https://www.twilio.com/docs/usage/security#validating-requests
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @param  \Closure  $next
      * @return mixed
      */
@@ -25,7 +26,7 @@ class TwilioRequestValidator
         $token = config('twilio.auth_token');
         $validator = new RequestValidator($token);
 
-        if (!$validator->validate(
+        if (! $validator->validate(
             $request->header('X-Twilio-Signature'),
             $request->fullUrl(),
             $request->toArray()

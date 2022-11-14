@@ -15,7 +15,7 @@ class TwilioApiKey
 
     public function create($apiKeyName)
     {
-        $keyData = ["friendlyName" => $apiKeyName] ?: null;
+        $keyData = ['friendlyName' => $apiKeyName] ?: null;
 
         return $this->twilio->newKeys
             ->create($keyData);
@@ -36,7 +36,7 @@ class TwilioApiKey
     public function update($apiKey, $friendlyName)
     {
         return $this->twilio->keys($apiKey)
-            ->update(["friendlyName" => $friendlyName]);
+            ->update(['friendlyName' => $friendlyName]);
     }
 
     public function delete($apiKey)

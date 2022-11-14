@@ -46,7 +46,7 @@ class TwilioSmsWebhookControllerTest extends TestCase
             'delivered',
             'undelivered',
             'received',
-            'read'
+            'read',
         ];
 
         foreach ($validStatuses as $validStatus) {

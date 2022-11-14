@@ -57,7 +57,7 @@ class TwilioConversationWebhookControllerTest extends TestCase
             'onConversationStateUpdated',
             'onDeliveryUpdated',
             'onUserAdded',
-            'onUserUpdated'
+            'onUserUpdated',
         ];
 
         foreach ($validStatuses as $validStatus) {

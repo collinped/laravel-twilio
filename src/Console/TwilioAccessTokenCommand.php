@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\TwilioAccessToken;
@@ -28,7 +29,8 @@ class TwilioAccessTokenCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param TwilioAccessToken $twilioAccessToken
+     *
+     * @param  TwilioAccessToken  $twilioAccessToken
      */
     public function __construct(TwilioAccessToken $twilioAccessToken)
     {
@@ -49,7 +51,7 @@ class TwilioAccessTokenCommand extends Command
                 'What kind of grant would you like to add?',
                 ['Video']
             );
-            $grantFunctionName = 'add' . $grant . 'Grant';
+            $grantFunctionName = 'add'.$grant.'Grant';
             $videoGrant = $this->$grantFunctionName();
             $accessToken->addGrant($videoGrant);
         }

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
 use Twilio\Rest\Client;
@@ -60,7 +59,7 @@ class TwilioSms
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param Client $twilio
+     * @param  Client  $twilio
      */
     public function __construct(Client $twilio)
     {
@@ -75,20 +74,21 @@ class TwilioSms
     /**
      * Send the Twilio Message.
      *
-     * @param array $params
+     * @param  array  $params
      * @return string
+     *
      * @throws \Twilio\Exceptions\TwilioException
      */
     public function send($params = [])
     {
-        $to = ($this->whatsApp ? 'whatsapp:' . $this->to : $this->to);
+        $to = ($this->whatsApp ? 'whatsapp:'.$this->to : $this->to);
 
-        $params['from'] = ($this->whatsApp ? 'whatsapp:' . $this->from : $this->from);
+        $params['from'] = ($this->whatsApp ? 'whatsapp:'.$this->from : $this->from);
         $params['body'] = $params['message'] ?? $this->message ?? null;
         //Pop an error because a body is required
         $params['statusCallback'] = $params['statusCallback'] ?? $this->statusCallback ?? null;
 
-        if (!empty($media)) {
+        if (! empty($media)) {
             $params['mediaUrl'] = $media;
         }
 
@@ -106,7 +106,7 @@ class TwilioSms
     public function redact($messageSid)
     {
         return $this->twilio->messages($messageSid)
-                ->update(["body" => ""]);
+                ->update(['body' => '']);
     }
 
     public function delete($messageSid): bool
@@ -126,7 +126,7 @@ class TwilioSms
     {
         return $this->twilio->messages($messageSid)
                 ->media
-                ->read(array(), 20);
+                ->read([], 20);
     }
 
     public function deleteMedia($messageSid, $mediaSid): bool
@@ -139,7 +139,7 @@ class TwilioSms
     /**
      * Set the Twilio number to send to.
      *
-     * @param string $phoneNumber
+     * @param  string  $phoneNumber
      * @return $this
      */
     public function to(string $phoneNumber): static
@@ -152,7 +152,7 @@ class TwilioSms
     /**
      * Set the Twilio number to send from.
      *
-     * @param string $phoneNumber
+     * @param  string  $phoneNumber
      * @return $this
      */
     public function from($phoneNumber)
@@ -165,7 +165,7 @@ class TwilioSms
     /**
      * Set the body of the message.
      *
-     * @param string $message
+     * @param  string  $message
      * @return $this
      */
     public function message($message)
@@ -178,7 +178,7 @@ class TwilioSms
     /**
      * Set the status callback.
      *
-     * @param string $statusCallback
+     * @param  string  $statusCallback
      * @return $this
      */
     public function statusCallback($statusCallback)
@@ -191,7 +191,7 @@ class TwilioSms
     /**
      * Add image media.
      *
-     * @param string $media
+     * @param  string  $media
      * @return $this
      */
     public function withMedia($media)

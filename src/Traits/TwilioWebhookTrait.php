@@ -2,14 +2,13 @@
 
 namespace Collinped\Twilio\Traits;
 
+use Collinped\Twilio\Events\WebhookHandled;
+use Collinped\Twilio\Events\WebhookReceived;
 use Collinped\Twilio\Http\Middleware\TwilioRequestValidator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
-use Collinped\Twilio\Events\WebhookHandled;
-use Collinped\Twilio\Events\WebhookReceived;
 
 trait TwilioWebhookTrait
 {
@@ -25,7 +24,8 @@ trait TwilioWebhookTrait
 
     /**
      * Handle Twilio Video webhook call.
-     * @param Request $request
+     *
+     * @param  Request  $request
      * @return Response
      */
     public function handleWebhook(Request $request): Response
@@ -65,21 +65,19 @@ trait TwilioWebhookTrait
 
     /**
      * Handle successful calls on the controller.
-     *
      */
     protected function successMethod(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload[$this->callbackKey], 200);
+        return new Response('Webhook Handled: '.$payload[$this->callbackKey], 200);
     }
 
     /**
      * Handle calls to missing methods on the controller.
-     *
      */
     protected function missingMethod($method): Response
     {
-        Log::error('Webhook Method Does not exist: ' . $method);
+        Log::error('Webhook Method Does not exist: '.$method);
 
-        return new Response('Webhook Method Does not exist: ' . $method, 403);
+        return new Response('Webhook Method Does not exist: '.$method, 403);
     }
 }

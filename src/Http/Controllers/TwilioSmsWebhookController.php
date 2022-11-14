@@ -2,10 +2,9 @@
 
 namespace Collinped\Twilio\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Collinped\Twilio\Traits\TwilioWebhookTrait;
+use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
-
 
 class TwilioSmsWebhookController extends Controller
 {
@@ -40,6 +39,7 @@ class TwilioSmsWebhookController extends Controller
     {
         return $this->successMethod($payload);
     }
+
     protected function handleUndelivered(array $payload): Response
     {
         return $this->successMethod($payload);
@@ -58,7 +58,7 @@ class TwilioSmsWebhookController extends Controller
     /**
      * WhatsApp only
      *
-     * @param array $payload
+     * @param  array  $payload
      * @return Response
      */
     protected function handleRead(array $payload): Response

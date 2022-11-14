@@ -10,12 +10,17 @@ use Twilio\TwiML\VoiceResponse;
 class TwilioVoice
 {
     public const STATUS_INITIATED = 'initiated';
+
     public const STATUS_RINGING = 'ringing';
+
     public const STATUS_ANSWERED = 'answered';
+
     public const STATUS_COMPLETED = 'completed';
 
     public const RECORDING_STATUS_ABSENT = 'absent';
+
     public const RECORDING_STATUS_IN_PROGRESS = 'in-progress';
+
     public const RECORDING_STATUS_COMPLETED = 'completed';
 
     /**
@@ -52,7 +57,7 @@ class TwilioVoice
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param Client $twilio
+     * @param  Client  $twilio
      */
     public function __construct(Client $twilio)
     {
@@ -60,9 +65,9 @@ class TwilioVoice
     }
 
     /**
-     * @param string $to
-     * @param string|callable $message
-     * @param array $params
+     * @param  string  $to
+     * @param  string|callable  $message
+     * @param  array  $params
      *
      * @link https://www.twilio.com/docs/api/voice/making-calls Documentation
      *
@@ -110,7 +115,7 @@ class TwilioVoice
     /**
      * Set the message url.
      *
-     * @param  string $url
+     * @param  string  $url
      * @return $this
      */
     public function url(string $url): static
@@ -119,10 +124,11 @@ class TwilioVoice
 
         return $this;
     }
+
     /**
      * Set the message url request method.
      *
-     * @param  string $method
+     * @param  string  $method
      * @return $this
      */
     public function method(string $method): static
@@ -131,10 +137,11 @@ class TwilioVoice
 
         return $this;
     }
+
     /**
      * Set the status for the current calls.
      *
-     * @param  string $status
+     * @param  string  $status
      * @return $this
      */
     public function status($status): static
@@ -143,10 +150,11 @@ class TwilioVoice
 
         return $this;
     }
+
     /**
      * Set the fallback url.
      *
-     * @param string $fallbackUrl
+     * @param  string  $fallbackUrl
      * @return $this
      */
     public function fallbackUrl(string $fallbackUrl): static
@@ -155,10 +163,11 @@ class TwilioVoice
 
         return $this;
     }
+
     /**
      * Set the fallback url request method.
      *
-     * @param string $fallbackMethod
+     * @param  string  $fallbackMethod
      * @return $this
      */
     public function fallbackMethod(string $fallbackMethod): static
@@ -178,7 +187,7 @@ class TwilioVoice
     /**
      * Values include initiated, ringing, answered, completed
      *
-     * @param array $statusCallbackEvents
+     * @param  array  $statusCallbackEvents
      * @return $this
      */
     public function statusCallbackEvent(array $statusCallbackEvents): static

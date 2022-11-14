@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
 use Twilio\Rest\Client;
@@ -10,7 +9,7 @@ class TwilioConversation
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param Client $twilio
+     * @param  Client  $twilio
      */
     public function __construct(Client $twilio)
     {
@@ -21,7 +20,7 @@ class TwilioConversation
     {
         return $this->twilio->conversations->v1->conversations
             ->create([
-                    "friendlyName" => $conversationName
+                'friendlyName' => $conversationName,
             ]);
     }
 
@@ -36,8 +35,8 @@ class TwilioConversation
         return $this->twilio->conversations->v1->conversations($conversationSid)
                     ->participants
                     ->create([
-                            "messagingBindingAddress" => $participantNumber, //Your Personal Mobile Number
-                            "messagingBindingProxyAddress" => $twilioPhoneNumber //Your purchased Twilio Phone Number
+                        'messagingBindingAddress' => $participantNumber, //Your Personal Mobile Number
+                        'messagingBindingProxyAddress' => $twilioPhoneNumber, //Your purchased Twilio Phone Number
                     ]);
     }
 
@@ -46,7 +45,7 @@ class TwilioConversation
         return $this->twilio->conversations->v1->conversations($conversationSid)
                 ->participants
                 ->create([
-                    "identity" => $chatIdentity
+                    'identity' => $chatIdentity,
                 ]);
     }
 
@@ -56,7 +55,7 @@ class TwilioConversation
             ->configuration()
             ->update(
                 [
-                    "reachabilityEnabled" => true
+                    'reachabilityEnabled' => true,
                 ]
             );
     }
@@ -67,7 +66,7 @@ class TwilioConversation
             ->configuration()
             ->update(
                 [
-                    "reachabilityEnabled" => false
+                    'reachabilityEnabled' => false,
                 ]
             );
     }

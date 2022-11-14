@@ -3,7 +3,6 @@
 namespace Collinped\Twilio;
 
 use Collinped\Twilio\Exception\InvalidArgumentException;
-use Twilio\Exceptions\ConfigurationException;
 use Twilio\Jwt\AccessToken;
 use Twilio\Jwt\Grants\ChatGrant;
 use Twilio\Jwt\Grants\VideoGrant;
@@ -33,7 +32,7 @@ class TwilioAccessToken
     public function __construct(
         ?string $accountSid = null,
         ?string $apiKey = null,
-        ?string  $apiSecret = null,
+        ?string $apiSecret = null,
         ?int $ttl = 3600,
         ?string $identity = null,
         ?string $region = null
@@ -68,6 +67,7 @@ class TwilioAccessToken
      *
      * @param $accountSid
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     public function setAccountSid($accountSid): TwilioAccessToken

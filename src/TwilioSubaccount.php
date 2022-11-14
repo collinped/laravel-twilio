@@ -2,8 +2,6 @@
 
 namespace Collinped\Twilio;
 
-use Illuminate\Support\Str;
-
 class TwilioSubaccount
 {
     protected $subAccountSid;
@@ -26,7 +24,7 @@ class TwilioSubaccount
     {
         return $this->twilio->api->v2010->accounts
             ->create([
-                "friendlyName" => $subaccountName
+                'friendlyName' => $subaccountName,
             ]);
     }
 
@@ -41,25 +39,25 @@ class TwilioSubaccount
         $subAccountName = $subAccountName ?: $this->subAccountName;
 
         return $this->twilio->api->v2010->accounts
-            ->read(["friendlyName" => $subAccountName], 20);
+            ->read(['friendlyName' => $subAccountName], 20);
     }
 
     public function suspend()
     {
         return $this->twilio->api->v2010->accounts($this->subAccountSid)
-            ->update(["status" => "suspended"]);
+            ->update(['status' => 'suspended']);
     }
 
     public function activate()
     {
         return $this->twilio->api->v2010->accounts($this->subAccountSid)
-            ->update(["status" => "active"]);
+            ->update(['status' => 'active']);
     }
 
     public function close()
     {
         return $this->twilio->api->v2010->accounts($this->subAccountSid)
-            ->update(["status" => "closed"]);
+            ->update(['status' => 'closed']);
     }
 
     public function name($subAccountName)

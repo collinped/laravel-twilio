@@ -7,7 +7,7 @@ class TwilioTrunk
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param Twilio $twilio
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {

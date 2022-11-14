@@ -41,7 +41,7 @@ class TwilioVoiceRecordingWebhookControllerTest extends TestCase
             'in-progress',
             'completed',
             'absent',
-            'failed'
+            'failed',
         ];
 
         foreach ($validStatuses as $validStatus) {

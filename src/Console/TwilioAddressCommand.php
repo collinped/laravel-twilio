@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\Twilio;
@@ -27,7 +28,8 @@ class TwilioAddressCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param Twilio $twilio
+     *
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {
@@ -47,9 +49,9 @@ class TwilioAddressCommand extends Command
         $postalCode = $this->ask('What is the postal code for this address?');
         $country = $this->anticipate('What is country for this address?', ['US']);
 
-        $this->line('Name: ' . $addressName);
-        $this->line('Address: ' . $street . ' ' . $city . ', ' . $region . ' ' . $postalCode);
-        $this->line('Country: ' . $country);
+        $this->line('Name: '.$addressName);
+        $this->line('Address: '.$street.' '.$city.', '.$region.' '.$postalCode);
+        $this->line('Country: '.$country);
 
         if ($this->confirm('Is this information correct?')) {
             $address = $this->twilio->sdk()->addresses
@@ -61,7 +63,7 @@ class TwilioAddressCommand extends Command
                     $country // isoCountry
                 );
 
-            $this->info('Address SID: ' . $address->sid);
+            $this->info('Address SID: '.$address->sid);
         }
     }
 

@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\TwilioSms;
@@ -30,7 +31,6 @@ class TwilioSmsSendCommand extends Command
 
     /**
      * Create a new command instance.
-     *
      */
     public function __construct(TwilioSms $twilioSms)
     {
@@ -45,7 +45,7 @@ class TwilioSmsSendCommand extends Command
     {
         $fromTwilioNumber = ($this->argument('from') ?? config('twilio.sms.from'));
 
-        $this->line('Sending SMS via Twilio to: '.$this->argument('to'). ' from: ' . $fromTwilioNumber);
+        $this->line('Sending SMS via Twilio to: '.$this->argument('to').' from: '.$fromTwilioNumber);
 
         // Grab the text option if specified
         $message = $this->argument('message');

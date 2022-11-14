@@ -31,7 +31,7 @@ class TwilioShortCode
         $phoneNumbers = $this->twilio->shortCodes
             ->read(
                 [
-                    "shortCode" => $shortCode
+                    'shortCode' => $shortCode,
                 ],
                 $limit
             );
@@ -56,7 +56,7 @@ class TwilioShortCode
 
     public function formatResponse($values)
     {
-        if (!$this->asCollection) {
+        if (! $this->asCollection) {
             return $values;
         }
 

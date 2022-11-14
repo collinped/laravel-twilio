@@ -24,7 +24,7 @@ class TwilioVerify
 
     public function send($verifySid, $phoneNumber, $method = 'sms'): string
     {
-        $verification =  $this->twilio->verify->v2->services($verifySid)
+        $verification = $this->twilio->verify->v2->services($verifySid)
                             ->verifications
                             ->create($phoneNumber, $method);
 
@@ -39,7 +39,7 @@ class TwilioVerify
                                 ->verificationChecks
                                 ->create(
                                     $code,
-                                    ["to" => $phoneNumber]
+                                    ['to' => $phoneNumber]
                                 );
 
         return $verificationCheck->status;

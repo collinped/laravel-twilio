@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\TwilioVoice;
@@ -15,6 +16,7 @@ class TwilioVoiceCallCommand extends Command
                        {to : Phone number to call}
                        {from? : Twilio number to call from}
                        {message? : The content of the voice message}';
+
     /**
      * The console command description.
      *
@@ -29,7 +31,8 @@ class TwilioVoiceCallCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param TwilioVoice $twilioVoice
+     *
+     * @param  TwilioVoice  $twilioVoice
      */
     public function __construct(TwilioVoice $twilioVoice)
     {

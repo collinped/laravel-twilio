@@ -16,7 +16,7 @@ class TwilioPublicKey
 
     public function create($publicKeyName)
     {
-        $keyData = ["friendlyName" => $publicKeyName] ?: null;
+        $keyData = ['friendlyName' => $publicKeyName] ?: null;
 
         return $this->twilio->accounts->v1->credentials
             ->publicKey
@@ -42,7 +42,7 @@ class TwilioPublicKey
         return $this->twilio->accounts->v1->credentials
             ->publicKey($publicKeySid)
             ->update(
-                ["friendlyName" => $friendlyName]
+                ['friendlyName' => $friendlyName]
             );
     }
 

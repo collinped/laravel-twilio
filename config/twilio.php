@@ -63,7 +63,6 @@ return [
     */
     'from' => env('TWILIO_FROM'),
 
-
     /*
     |--------------------------------------------------------------------------
     | Twilio Video Configuration
@@ -92,7 +91,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_VIDEO_WEBHOOK', (\Route::has('twilio.video.webhook') ? route('twilio.video.webhook', null, false) : null))
-        'webhook' => env('TWILIO_VIDEO_WEBHOOK', 'webhook/video')
+        'webhook' => env('TWILIO_VIDEO_WEBHOOK', 'webhook/video'),
     ],
 
     /*
@@ -114,7 +113,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_SMS_WEBHOOK', (\Route::has('twilio.sms.webhook') ? route('twilio.sms.webhook', null, false) : null))
-        'webhook' => 'webhook/sms'
+        'webhook' => 'webhook/sms',
     ],
 
     /*
@@ -137,7 +136,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_VOICE_WEBHOOK', (\Route::has('twilio.voice.webhook') ? route('twilio.voice.webhook', null, false) : null ))
-        'webhook' => 'webhook/voice'
+        'webhook' => 'webhook/voice',
     ],
 
     'fax' => [
@@ -152,7 +151,7 @@ return [
         |
         */
         //'webhook' => env('TWILIO_FAX_WEBHOOK', (\Route::has('twilio.fax.webhook') ? route('twilio.fax.webhook', null, false) : null ))
-        'webhook' => 'webhook/twilio-fax'
+        'webhook' => 'webhook/twilio-fax',
     ],
 
     /*
@@ -173,5 +172,5 @@ return [
     | Configuration variables dedicated to Twilio Chat
     |
     */
-    'chat' => []
+    'chat' => [],
 ];

@@ -106,6 +106,7 @@ class Twilio
      *
      * @param $accountSid
      * @return $this
+     *
      * @throws InvalidArgumentException
      */
     public function setAccountSid($accountSid): Twilio
@@ -218,9 +219,9 @@ class Twilio
     }
 
     /**
-     * @throws ConfigurationException
-     *
      * @return Client
+     *
+     * @throws ConfigurationException
      */
     public function getTwilio(): Client
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console\Subaccount;
 
 use Collinped\Twilio\Twilio;
@@ -27,7 +28,8 @@ class TwilioSubaccountCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param Twilio $twilio
+     *
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {
@@ -45,7 +47,7 @@ class TwilioSubaccountCommand extends Command
 
         $subaccount = $this->twilio->subAccount()->create($subaccountName);
 
-        $this->line('Successfully created subaccount with SID: ' . $subaccount->sid);
+        $this->line('Successfully created subaccount with SID: '.$subaccount->sid);
     }
 
     /**

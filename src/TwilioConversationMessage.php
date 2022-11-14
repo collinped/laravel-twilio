@@ -9,7 +9,7 @@ class TwilioConversationMessage
     private TwilioConversation $twilioConversation;
 
     /**
-     * @param Twilio $twilio
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio, TwilioConversation $twilioConversation)
     {
@@ -18,10 +18,8 @@ class TwilioConversationMessage
         $this->twilioConversation = $twilioConversation;
     }
 
-    public function getConversationSid(): String
+    public function getConversationSid(): string
     {
         return $this->twilioConversation->sid;
     }
-
-
 }

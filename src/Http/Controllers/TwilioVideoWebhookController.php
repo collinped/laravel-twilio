@@ -2,13 +2,12 @@
 
 namespace Collinped\Twilio\Http\Controllers;
 
-use Illuminate\Routing\Controller;
 use Collinped\Twilio\Traits\TwilioWebhookTrait;
+use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class TwilioVideoRoomCallback
- * @package App\Http\Controllers\Callback
  */
 class TwilioVideoWebhookController extends Controller
 {

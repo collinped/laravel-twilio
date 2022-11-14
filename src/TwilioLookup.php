@@ -2,10 +2,8 @@
 
 namespace Collinped\Twilio;
 
-
 class TwilioLookup
 {
-
     protected bool $carrier = false;
 
     protected bool $caller = false;
@@ -65,7 +63,7 @@ class TwilioLookup
     public function withAddon($addon): static
     {
         $this->addons = [
-            $addon
+            $addon,
         ];
 
         return $this;
@@ -89,5 +87,4 @@ class TwilioLookup
     {
         return $this->withAddonData($addonData);
     }
-
 }

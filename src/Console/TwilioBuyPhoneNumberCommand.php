@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\Twilio;
@@ -34,7 +35,8 @@ class TwilioBuyPhoneNumberCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param Twilio $twilio
+     *
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {
@@ -50,7 +52,7 @@ class TwilioBuyPhoneNumberCommand extends Command
     {
         $country = $this->option('country');
 
-        if (!$this->argument('number')) {
+        if (! $this->argument('number')) {
             if ($this->option('local') || $this->option('areacode')) {
                 $attributes = [];
                 if ($this->option('areacode')) {
@@ -82,7 +84,7 @@ class TwilioBuyPhoneNumberCommand extends Command
         }
 
         $phoneNumberAttributes = [
-            'phoneNumber' => $selectedPhoneNumber
+            'phoneNumber' => $selectedPhoneNumber,
         ];
 
         if ($this->confirm('Would you like to create a Regulatory Bundle? (Can take up to 3 days)')) {
@@ -104,11 +106,11 @@ class TwilioBuyPhoneNumberCommand extends Command
             $phoneNumberAttributes['bundleSid'] = '';
         }
 
-        if ($this->confirm('Would you like to purchase ' . $selectedPhoneNumber . '?')) {
+        if ($this->confirm('Would you like to purchase '.$selectedPhoneNumber.'?')) {
             $puchasedPhoneNumber = $this->twilio->sdk()->incomingPhoneNumbers
                 ->create($phoneNumberAttributes);
 
-            $this->info('Successfully purchased phone number: ' . $selectedPhoneNumber);
+            $this->info('Successfully purchased phone number: '.$selectedPhoneNumber);
         }
     }
 

@@ -2,8 +2,8 @@
 
 namespace Collinped\Twilio;
 
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Support\DeferrableProvider;
+use Illuminate\Support\ServiceProvider;
 
 class TwilioAccessTokenServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -25,7 +25,6 @@ class TwilioAccessTokenServiceProvider extends ServiceProvider implements Deferr
                 $config['api_secret']
             );
         });
-
     }
 
     /**
@@ -36,7 +35,7 @@ class TwilioAccessTokenServiceProvider extends ServiceProvider implements Deferr
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/twilio.php',
+            __DIR__.'/../config/twilio.php',
             'twilio'
         );
     }

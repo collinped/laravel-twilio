@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Collinped\Twilio;
-
 
 use Twilio\Rest\Client;
 
@@ -28,7 +26,7 @@ class TwilioPhoneNumber
     private bool $asCollection = false;
 
     /**
-     * @param Client $twilio
+     * @param  Client  $twilio
      */
     public function __construct(Client $twilio)
     {
@@ -51,7 +49,7 @@ class TwilioPhoneNumber
     {
         $phoneNumbers = $this->twilio->availablePhoneNumbers($this->region)
                     ->local
-                    ->read(["areaCode" => $areaCode], 20);
+                    ->read(['areaCode' => $areaCode], 20);
 
         return $this->formatResponse($phoneNumbers);
     }
@@ -60,7 +58,7 @@ class TwilioPhoneNumber
     {
         $phoneNumbers = $this->twilio->availablePhoneNumbers($this->region)
             ->local
-            ->read(["inRegion" => $state], 20);
+            ->read(['inRegion' => $state], 20);
 
         return $this->formatResponse($phoneNumbers);
     }
@@ -79,11 +77,11 @@ class TwilioPhoneNumber
 
     protected function formatPhoneNumberData($phoneNumber, $data = [])
     {
-        $data["phoneNumber"] = $phoneNumber;
-        $this->addressSid ?: $data["addressSid"] = $this->addressSid;
-        $this->bundleSid ?: $data["bundleSid"] = $this->bundleSid;
-        $this->voiceUrl ?: $data["voiceUrl"] = $this->voiceUrl;
-        $this->smsUrl ?: $data["smsUrl"] = $this->smsUrl;
+        $data['phoneNumber'] = $phoneNumber;
+        $this->addressSid ?: $data['addressSid'] = $this->addressSid;
+        $this->bundleSid ?: $data['bundleSid'] = $this->bundleSid;
+        $this->voiceUrl ?: $data['voiceUrl'] = $this->voiceUrl;
+        $this->smsUrl ?: $data['smsUrl'] = $this->smsUrl;
 
         return $data;
     }
@@ -109,9 +107,9 @@ class TwilioPhoneNumber
     {
         return $this->twilio->incomingPhoneNumbers($phoneNumberSid)
             ->update(
-                array(
-                    "accountSid" => $subAccountSid
-                )
+                [
+                    'accountSid' => $subAccountSid,
+                ]
             );
     }
 
@@ -158,13 +156,12 @@ class TwilioPhoneNumber
 
     public function formatResponse($values)
     {
-        if (!$this->asCollection) {
+        if (! $this->asCollection) {
             return $values;
         }
 
         return collect($values)->map(function ($value) {
             return (object) $value->toArray();
         });
-
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Collinped\Twilio;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\DeferrableProvider;
 
 class TwilioServiceProvider extends ServiceProvider implements DeferrableProvider
 {
@@ -47,7 +47,7 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/twilio.php',
+            __DIR__.'/../config/twilio.php',
             'twilio'
         );
     }
@@ -59,14 +59,14 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     protected function registerRoutes()
     {
-        if (!$this->app->routesAreCached()) {
+        if (! $this->app->routesAreCached()) {
             if (Twilio::$registersRoutes) {
                 Route::group([
                     'prefix' => config('twilio.path'),
                     'namespace' => 'Collinped\Twilio\Http\Controllers',
                     'as' => 'twilio.',
                 ], function () {
-                    $this->loadRoutesFrom(__DIR__ .'/../routes/web.php');
+                    $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
                 });
             }
         }
@@ -81,7 +81,7 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/twilio.php' => $this->app->configPath('twilio.php'),
+                __DIR__.'/../config/twilio.php' => $this->app->configPath('twilio.php'),
             ], 'config');
         }
     }

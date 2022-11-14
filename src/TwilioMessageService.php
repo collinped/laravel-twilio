@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Collinped\Twilio;
-
 
 class TwilioMessageService
 {
@@ -40,7 +38,7 @@ class TwilioMessageService
     {
         return $this->twilio->messaging->v1->services($serviceSid)
             ->update([
-                "friendlyName" => $serviceName
+                'friendlyName' => $serviceName,
             ]);
     }
 
@@ -49,5 +47,4 @@ class TwilioMessageService
         return $this->twilio->messaging->v1->services($serviceSid)
             ->delete();
     }
-
 }

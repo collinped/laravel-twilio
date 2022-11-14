@@ -11,7 +11,7 @@ class TwilioVoiceRecording
     private \Twilio\Rest\Client $twilio;
 
     /**
-     * @param Twilio $twilio
+     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {
@@ -26,7 +26,6 @@ class TwilioVoiceRecording
 
     public function fetch()
     {
-
     }
 
     public function startRecording($call)
@@ -46,7 +45,7 @@ class TwilioVoiceRecording
 
         return $this->twilio->$callType($call)
             ->recordings($recording)
-            ->update("paused", ["pauseBehavior" => $type]);
+            ->update('paused', ['pauseBehavior' => $type]);
     }
 
     public function resumeRecording($recording, $call)
@@ -55,7 +54,7 @@ class TwilioVoiceRecording
 
         return $this->twilio->calls($call)
             ->recordings($recording)
-            ->update("in-progress");
+            ->update('in-progress');
     }
 
     public function stopRecording($recording, $call)
@@ -64,7 +63,7 @@ class TwilioVoiceRecording
 
         return $this->twilio->calls($call)
             ->recordings($recording)
-            ->update("stopped");
+            ->update('stopped');
     }
 
     public function call($call)
