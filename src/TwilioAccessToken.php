@@ -21,9 +21,6 @@ class TwilioAccessToken
 
     protected ?string $region = null;
 
-    /**
-     * @var AccessToken
-     */
     private AccessToken $accessToken;
 
     /**
@@ -65,7 +62,6 @@ class TwilioAccessToken
     /**
      * Set the API key.
      *
-     * @param $accountSid
      * @return $this
      *
      * @throws InvalidArgumentException

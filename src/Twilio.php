@@ -23,24 +23,12 @@ class Twilio
      */
     protected ?string $subAccountSid = null;
 
-    /**
-     * @var string
-     */
     protected string $apiKey;
 
-    /**
-     * @var string
-     */
     protected string $apiSecret;
 
-    /**
-     * @var bool
-     */
     public static bool $enableDebugging = false;
 
-    /**
-     * @var Client
-     */
     protected Client $twilio;
 
     /**
@@ -66,8 +54,6 @@ class Twilio
 
     /**
      * Indicates if Twilio routes will be registered.
-     *
-     * @var bool
      */
     public static bool $registersRoutes = true;
 
@@ -83,9 +69,6 @@ class Twilio
         return new static();
     }
 
-    /**
-     * @return Twilio
-     */
     public static function debug(): Twilio
     {
         static::$enableDebugging = true;
@@ -104,7 +87,6 @@ class Twilio
     /**
      * Set the Account SID.
      *
-     * @param $accountSid
      * @return $this
      *
      * @throws InvalidArgumentException
@@ -160,8 +142,6 @@ class Twilio
 
     /**
      * Api Key resource.
-     *
-     * @return TwilioApiKey
      */
     public function apiKey(): TwilioApiKey
     {
@@ -170,8 +150,6 @@ class Twilio
 
     /**
      * Phone Number resource.
-     *
-     * @return TwilioPhoneNumber
      */
     public function phoneNumber(): TwilioPhoneNumber
     {
@@ -180,8 +158,6 @@ class Twilio
 
     /**
      * Sms resource.
-     *
-     * @return TwilioSms
      */
     public function sms(): TwilioSms
     {
@@ -210,8 +186,6 @@ class Twilio
 
     /**
      * Conversation resource.
-     *
-     * @return TwilioConversation
      */
     public function conversation(): TwilioConversation
     {
@@ -219,8 +193,6 @@ class Twilio
     }
 
     /**
-     * @return Client
-     *
      * @throws ConfigurationException
      */
     public function getTwilio(): Client

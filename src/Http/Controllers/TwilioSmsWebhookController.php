@@ -57,9 +57,6 @@ class TwilioSmsWebhookController extends Controller
 
     /**
      * WhatsApp only
-     *
-     * @param  array  $payload
-     * @return Response
      */
     protected function handleRead(array $payload): Response
     {

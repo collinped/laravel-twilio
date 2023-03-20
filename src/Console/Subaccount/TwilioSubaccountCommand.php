@@ -21,15 +21,10 @@ class TwilioSubaccountCommand extends Command
      */
     protected $description = 'Twilio command to create a new subaccount.';
 
-    /**
-     * @var \Collinped\Twilio\Twilio
-     */
     protected Twilio $twilio;
 
     /**
      * Create a new command instance.
-     *
-     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {

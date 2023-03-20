@@ -28,8 +28,6 @@ class TwilioAddressCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param  Twilio  $twilio
      */
     public function __construct(Twilio $twilio)
     {

@@ -58,9 +58,6 @@ class TwilioSms
 
     private \Twilio\Rest\Client $twilio;
 
-    /**
-     * @param  Client  $twilio
-     */
     public function __construct(Client $twilio)
     {
         $this->twilio = $twilio;
@@ -139,7 +136,6 @@ class TwilioSms
     /**
      * Set the Twilio number to send to.
      *
-     * @param  string  $phoneNumber
      * @return $this
      */
     public function to(string $phoneNumber): static

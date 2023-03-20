@@ -8,9 +8,6 @@ class TwilioConversationMessage
 
     private TwilioConversation $twilioConversation;
 
-    /**
-     * @param  Twilio  $twilio
-     */
     public function __construct(Twilio $twilio, TwilioConversation $twilioConversation)
     {
         $this->twilio = $twilio->sdk();

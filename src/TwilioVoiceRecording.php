@@ -10,9 +10,6 @@ class TwilioVoiceRecording
 
     private \Twilio\Rest\Client $twilio;
 
-    /**
-     * @param  Twilio  $twilio
-     */
     public function __construct(Twilio $twilio)
     {
         $this->twilio = $twilio->sdk();

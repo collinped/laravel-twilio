@@ -27,9 +27,6 @@ class TwilioPay
 
     private string $paymentMethod;
 
-    /**
-     * @param  Client  $twilio
-     */
     public function __construct(Client $twilio)
     {
         $this->twilio = $twilio;

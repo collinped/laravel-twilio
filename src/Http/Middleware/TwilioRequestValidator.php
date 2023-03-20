@@ -12,10 +12,6 @@ class TwilioRequestValidator
      * Handle an incoming request.
      *
      * @link https://www.twilio.com/docs/usage/security#validating-requests
-     *
-     * @param  Request  $request
-     * @param  \Closure  $next
-     * @return mixed
      */
     public function handle(Request $request, Closure $next): mixed
     {

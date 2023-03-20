@@ -25,9 +25,6 @@ class TwilioPhoneNumber
 
     private bool $asCollection = false;
 
-    /**
-     * @param  Client  $twilio
-     */
     public function __construct(Client $twilio)
     {
         $this->twilio = $twilio;

@@ -26,8 +26,6 @@ class TwilioVideoRoomCommand extends Command
 
     /**
      * Create a new command instance.
-     *
-     * @param  Twilio  $twilioVideo
      */
     public function __construct(Twilio $twilioVideo)
     {

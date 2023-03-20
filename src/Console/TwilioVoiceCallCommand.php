@@ -24,15 +24,10 @@ class TwilioVoiceCallCommand extends Command
      */
     protected $description = 'Twilio command to test Twilio Call API Integration.';
 
-    /**
-     * @var TwilioVoice
-     */
     protected TwilioVoice $twilioVoice;
 
     /**
      * Create a new command instance.
-     *
-     * @param  TwilioVoice  $twilioVoice
      */
     public function __construct(TwilioVoice $twilioVoice)
     {

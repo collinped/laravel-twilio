@@ -102,8 +102,6 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
     public function provides(): array
     {

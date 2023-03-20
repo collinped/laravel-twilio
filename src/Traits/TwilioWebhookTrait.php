@@ -24,9 +24,6 @@ trait TwilioWebhookTrait
 
     /**
      * Handle Twilio Video webhook call.
-     *
-     * @param  Request  $request
-     * @return Response
      */
     public function handleWebhook(Request $request): Response
     {

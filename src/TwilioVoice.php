@@ -43,22 +43,15 @@ class TwilioVoice
 
     private \Twilio\Rest\Client $twilio;
 
-    /**
-     * @param  Client  $twilio
-     */
     public function __construct(Client $twilio)
     {
         $this->twilio = $twilio;
     }
 
     /**
-     * @param  string  $to
      * @param  string|callable  $message
-     * @param  array  $params
      *
      * @link https://www.twilio.com/docs/api/voice/making-calls Documentation
-     *
-     * @return \Twilio\Rest\Api\V2010\Account\CallInstance
      */
     public function callWithMessage(string $to, $message, array $params = []): CallInstance
     {
@@ -102,7 +95,6 @@ class TwilioVoice
     /**
      * Set the message url.
      *
-     * @param  string  $url
      * @return $this
      */
     public function url(string $url): static
@@ -115,7 +107,6 @@ class TwilioVoice
     /**
      * Set the message url request method.
      *
-     * @param  string  $method
      * @return $this
      */
     public function method(string $method): static
@@ -141,7 +132,6 @@ class TwilioVoice
     /**
      * Set the fallback url.
      *
-     * @param  string  $fallbackUrl
      * @return $this
      */
     public function fallbackUrl(string $fallbackUrl): static
@@ -154,7 +144,6 @@ class TwilioVoice
     /**
      * Set the fallback url request method.
      *
-     * @param  string  $fallbackMethod
      * @return $this
      */
     public function fallbackMethod(string $fallbackMethod): static
@@ -174,7 +163,6 @@ class TwilioVoice
     /**
      * Values include initiated, ringing, answered, completed
      *
-     * @param  array  $statusCallbackEvents
      * @return $this
      */
     public function statusCallbackEvent(array $statusCallbackEvents): static

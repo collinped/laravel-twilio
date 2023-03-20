@@ -8,9 +8,6 @@ class TwilioRegulation
 {
     private \Twilio\Rest\Client $twilio;
 
-    /**
-     * @param  Client  $twilio
-     */
     public function __construct(Client $twilio)
     {
         $this->twilio = $twilio;

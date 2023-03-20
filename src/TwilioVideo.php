@@ -220,7 +220,6 @@ class TwilioVideo
      * https://www.twilio.com/docs/video/api/external-s3-recordings
      * https://www.twilio.com/docs/video/api/encrypted-recordings
      *
-     * @param $name
      * @param  array  $settings
      * @return mixed
      */

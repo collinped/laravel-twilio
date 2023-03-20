@@ -12,15 +12,12 @@ class WebhookReceived
 
     /**
      * The webhook payload.
-     *
-     * @var array
      */
     public array $payload;
 
     /**
      * Create a new event instance.
      *
-     * @param  array  $payload
      * @return void
      */
     public function __construct(array $payload)
