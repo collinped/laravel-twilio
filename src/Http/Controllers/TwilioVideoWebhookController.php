@@ -2,113 +2,101 @@
 
 namespace Collinped\Twilio\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Collinped\Twilio\TwilioWebhook;
+use Collinped\Twilio\Traits\TwilioWebhookTrait;
+use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class TwilioVideoRoomCallback
- * @package App\Http\Controllers\Callback
  */
 class TwilioVideoWebhookController extends Controller
 {
-    use TwilioWebhook;
+    use TwilioWebhookTrait;
 
-    /**
-     * Handle a room created from a Twilio Video callback.
-     *
-     *
-     */
-    protected function handleRoomCreated(array $payload)
+    protected function handleRoomCreated(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    /**
-     * @param array $payload
-     */
-    protected function handleRoomEnded(array $payload)
+    protected function handleRoomEnded(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleParticipantConnected(array $payload)
+    protected function handleParticipantConnected(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    /**
-     * @param array $payload
-     */
-    protected function handleParticipantDisconnected(array $payload)
+    protected function handleParticipantDisconnected(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleTrackAdded(array $payload)
+    protected function handleTrackAdded(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleTrackRemoved(array $payload)
+    protected function handleTrackRemoved(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleTrackEnabled(array $payload)
+    protected function handleTrackEnabled(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleTrackDisabled(array $payload)
+    protected function handleTrackDisabled(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleRecordingStarted(array $payload)
+    protected function handleRecordingStarted(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleRecordingCompleted(array $payload)
+    protected function handleRecordingCompleted(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleRecordingFailed(array $payload)
+    protected function handleRecordingFailed(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
     //Composition Webhooks
 
-    protected function handleCompositionEnqueued(array $payload)
+    protected function handleCompositionEnqueued(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleCompositionHookFailed(array $payload)
+    protected function handleCompositionHookFailed(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleCompositionStarted(array $payload)
+    protected function handleCompositionStarted(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleCompositionAvailable(array $payload)
+    protected function handleCompositionAvailable(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleCompositionProgress(array $payload)
+    protected function handleCompositionProgress(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 
-    protected function handleCompositionFailed(array $payload)
+    protected function handleCompositionFailed(array $payload): Response
     {
-        return new Response('Webhook Handled: ' . $payload['StatusCallbackEvent'], 200);
+        return $this->successMethod($payload);
     }
 }

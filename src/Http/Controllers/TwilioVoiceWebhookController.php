@@ -2,15 +2,34 @@
 
 namespace Collinped\Twilio\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use Collinped\Twilio\TwilioWebhook;
+use Collinped\Twilio\Traits\TwilioWebhookTrait;
+use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class TwilioVideoRoomCallback
- * @package App\Http\Controllers\Callback
  */
 class TwilioVoiceWebhookController extends Controller
 {
-    use TwilioWebhook;
+    use TwilioWebhookTrait;
+
+    protected function handleInitiated(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleRinging(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleAnswered(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleCompleted(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
 }

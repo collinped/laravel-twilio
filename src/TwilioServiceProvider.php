@@ -2,19 +2,12 @@
 
 namespace Collinped\Twilio;
 
+use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Contracts\Support\DeferrableProvider;
 
 class TwilioServiceProvider extends ServiceProvider implements DeferrableProvider
 {
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = true;
-
     /**
      * Bootstrap any package services.
      *
@@ -22,17 +15,9 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     public function boot()
     {
-        $this->registerRoutes();
-
-        if ($this->app->runningInConsole()) {
-            $this->registerPublishing();
-            $this->commands([
-                Console\TwilioBuyPhoneNumberCommand::class,
-                Console\TwilioSmsSendCommand::class,
-                Console\TwilioAddressCommand::class,
-                Console\TwilioVoiceVerifyCommand::class,
-            ]);
-        }
+//        $this->registerRoutes();
+        $this->registerPublishing();
+        $this->registerCommands();
     }
 
     /**
@@ -43,12 +28,15 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     public function register()
     {
         $this->configure();
-        $this->app->singleton('Collinped\Twilio\Twilio', function ($app) {
-            $config = $app['config']['twilio'];
-            return new Twilio($config);
-        });
 
-        //$this->app->alias('twilio', Twilio::class);
+        $this->app->singleton(Twilio::class, function ($app) {
+            $config = $app['config']['twilio'];
+
+            return new Twilio(
+                $config['account_sid'],
+                $config['auth_token']
+            );
+        });
     }
 
     /**
@@ -59,7 +47,8 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     protected function configure()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../config/twilio.php', 'twilio'
+            __DIR__.'/../config/twilio.php',
+            'twilio'
         );
     }
 
@@ -70,17 +59,17 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
      */
     protected function registerRoutes()
     {
-//        if (!$this->app->routesAreCached()) {
-//            if (Twilio::$registersRoutes) {
-//                Route::group([
-//                    //'prefix' => config('twilio.path'),
-//                    'namespace' => 'Collinped\Twilio\Http\Controllers',
-//                    'as' => 'twilio.',
-//                ], function () {
-//                    $this->loadRoutesFrom(__DIR__ .'/../routes/web.php');
-//                });
-//            }
-//        }
+        if (! $this->app->routesAreCached()) {
+            if (Twilio::$registersRoutes) {
+                Route::group([
+                    'prefix' => config('twilio.path'),
+                    'namespace' => 'Collinped\Twilio\Http\Controllers',
+                    'as' => 'twilio.',
+                ], function () {
+                    $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+                });
+            }
+        }
     }
 
     /**
@@ -92,20 +81,32 @@ class TwilioServiceProvider extends ServiceProvider implements DeferrableProvide
     {
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . '/../config/twilio.php' => $this->app->configPath('twilio.php'),
+                __DIR__.'/../config/twilio.php' => $this->app->configPath('twilio.php'),
             ], 'config');
+        }
+    }
+
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\Subaccount\TwilioSubaccountCommand::class,
+
+                Console\TwilioBuyPhoneNumberCommand::class,
+                Console\TwilioSmsSendCommand::class,
+                Console\TwilioAddressCommand::class,
+                Console\TwilioVoiceVerifyCommand::class,
+            ]);
         }
     }
 
     /**
      * Get the services provided by the provider.
-     *
-     * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return [
-            'Collinped\Twilio\Twilio',
+            Twilio::class,
         ];
     }
 }

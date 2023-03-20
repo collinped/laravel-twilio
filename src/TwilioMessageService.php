@@ -1,12 +1,20 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
-
-class TwilioMessageService extends Twilio
+class TwilioMessageService
 {
     //https://www.twilio.com/docs/sms/services/api
+
+    private \Twilio\Rest\Client $twilio;
+
+    /**
+     * @var Twilio
+     */
+    public function __construct(Twilio $twilio)
+    {
+        $this->twilio = $twilio->sdk();
+    }
 
     public function create($serviceName)
     {
@@ -23,14 +31,14 @@ class TwilioMessageService extends Twilio
     public function read()
     {
         return $this->twilio->messaging->v1->services
-                ->read(array(), 20);
+                ->read(20);
     }
 
     public function update($serviceSid, $serviceName)
     {
         return $this->twilio->messaging->v1->services($serviceSid)
             ->update([
-                "friendlyName" => $serviceName
+                'friendlyName' => $serviceName,
             ]);
     }
 
@@ -39,5 +47,4 @@ class TwilioMessageService extends Twilio
         return $this->twilio->messaging->v1->services($serviceSid)
             ->delete();
     }
-
 }

@@ -66,10 +66,19 @@ Behind the scenes, this will register a `POST` or `GET` route to a controller pr
 
 ```php
 protected $except = [
-    'webhook/twilio-video', //Twilio Video Webhooks
-    'webhook/twilio-voice', //TWilio Voice Webhooks
-    'webhook/twilio-sms', //Twilio SMS Webhooks
-    'webhook/twilio-fax', //Twilio Fax Webhooks
+    'webhook/twilio/*', // All Twilio Webhooks
+];
+```
+
+Or whitelist each endpoint individually based on your application
+
+```php
+protected $except = [
+    'webhook/twilio/video', // Twilio Video Webhooks
+    'webhook/twilio/voice', // Twilio Voice Webhooks
+    'webhook/twilio/voice-recording', // Twilio Voice Recording Webhooks
+    'webhook/twilio/sms', // Twilio SMS Webhooks
+    'webhook/twilio/conversations', // Twilio Conversations Webhooks
 ];
 ```
 
@@ -84,20 +93,19 @@ If you have an existing Twilio account login to your console or sign up here for
 - Input your "Status Callback URL" as:
 
 ```
-yourdomain.com/webhook/twilio-video
+yourdomain.com/webhook/twilio/video
 ```
 
 ### Laravel Twilio Roadmap
 
-- [ ] Twilio Voice
+- [x] Twilio Voice
 - [x] Twilio SMS
 - [x] Twilio Video
-- [ ] Twilio Fax
 - [ ] Twilio Phone Numbers
 - [ ] Twilio Short Codes
-- [ ] Twilio Chat
 - [ ] Twilio Conversations
 - [x] Twilio Verify
+- [ ] Twilio Verify Email - Sendgrid
 - [ ] Twilio Programmable Wireless
 - [ ] Twilio Proxy
 - [ ] Twilio Lookup

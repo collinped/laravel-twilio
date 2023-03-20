@@ -1,31 +1,42 @@
 <?php
 
-
 namespace Collinped\Twilio;
 
-class TwilioVerify extends Twilio
+use Illuminate\Support\Str;
+
+class TwilioVerify
 {
-    public function create($verifyServiceName)
+    protected \Twilio\Rest\Client $twilio;
+
+    public function __construct(Twilio $twilio)
     {
-       return  $this->twilio->verify->v2->services
+        $this->twilio = $twilio->sdk();
+    }
+
+    public function create($verifyServiceName): \Twilio\Rest\Verify\V2\ServiceInstance
+    {
+        return  $this->twilio->verify->v2->services
             ->create($verifyServiceName);
     }
 
-    public function send($verifySid, $phoneNumber, $method = 'sms')
+    public function send($verifySid, $phoneNumber, $method = 'sms'): string
     {
-        $verification =  $this->twilio->verify->v2->services($verifySid)
+        $verification = $this->twilio->verify->v2->services($verifySid)
                             ->verifications
                             ->create($phoneNumber, $method);
 
         return $verification->status;
     }
 
-    public function check($verfifySid, $phoneNumber, $code)
+    public function check($verifySid, $phoneNumber, $code = null): string
     {
-        $verificationCheck = $this->twilio->verify->v2->services($verfifySid)
+        $code = is_null($code) ? Str::upper(Str::random(6)) : $code;
+
+        $verificationCheck = $this->twilio->verify->v2->services($verifySid)
                                 ->verificationChecks
-                                ->create($code, // code
-                                    array("to" => $phoneNumber)
+                                ->create(
+                                    $code,
+                                    ['to' => $phoneNumber]
                                 );
 
         return $verificationCheck->status;

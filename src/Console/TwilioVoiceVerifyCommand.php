@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\Twilio;
@@ -28,7 +29,6 @@ class TwilioVoiceVerifyCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param Twilio $twilio
      */
     public function __construct(Twilio $twilio)
     {
@@ -41,17 +41,18 @@ class TwilioVoiceVerifyCommand extends Command
      */
     public function fire()
     {
-        if (!$this->argument('number')) {
+        if (! $this->argument('number')) {
             $phoneNumber = $this->ask('What phone number would you like to verify?');
-        }else{
+        } else {
             $phoneNumber = $this->argument('number');
         }
 
         $friendlyName = $this->ask('What is the friendly name for this number?');
 
         $validationRequest = $this->twilio->sdk()->validationRequests
-            ->create($phoneNumber, // phoneNumber
-                ["friendlyName" => $friendlyName]
+            ->create(
+                $phoneNumber,
+                ['friendlyName' => $friendlyName]
             );
 
         dd($validationRequest);

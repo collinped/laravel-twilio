@@ -1,4 +1,5 @@
 <?php
+
 namespace Collinped\Twilio\Console;
 
 use Collinped\Twilio\Twilio;
@@ -25,7 +26,6 @@ class TwilioVideoRoomCommand extends Command
 
     /**
      * Create a new command instance.
-     * @param Twilio $twilioVideo
      */
     public function __construct(Twilio $twilioVideo)
     {
@@ -41,11 +41,11 @@ class TwilioVideoRoomCommand extends Command
     {
         if ($this->argument('name')) {
             $videoRoomName = $this->argument('name');
-        }else{
+        } else {
             $videoRoomName = $this->ask('What is the video room name?');
         }
 
-        $this->line('Creating a room via Twilio Video with name: ' . $videoRoomName);
+        $this->line('Creating a room via Twilio Video with name: '.$videoRoomName);
     }
 
     /**
