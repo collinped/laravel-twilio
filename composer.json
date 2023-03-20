@@ -37,7 +37,6 @@
         }
     },
     "scripts": {
-        "lint": "php-cs-fixer fix --allow-risky=yes",
         "psalm": "vendor/bin/psalm",
         "test": "vendor/bin/phpunit",
         "testbench": "./vendor/bin/testbench package:test --parallel --no-coverage",

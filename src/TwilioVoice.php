@@ -23,29 +23,14 @@ class TwilioVoice
 
     public const RECORDING_STATUS_COMPLETED = 'completed';
 
-    /**
-     * @var null|string
-     */
     protected ?string $method = null;
 
-    /**
-     * @var null|string
-     */
     protected ?string $status = null;
 
-    /**
-     * @var null|string
-     */
     protected ?string $fallbackUrl = null;
 
-    /**
-     * @var null|string
-     */
     protected ?string $fallbackMethod = null;
 
-    /**
-     * @var null|string
-     */
     protected ?string $from = null;
 
     private string $statusCallbackMethod = 'POST';
@@ -53,6 +38,8 @@ class TwilioVoice
     private ?array $statusCallbackEvents = null;
 
     private ?string $statusCallbackUrl = null;
+
+    private ?string $url = null;
 
     private \Twilio\Rest\Client $twilio;
 

@@ -8,9 +8,6 @@ class TwilioVerify
 {
     protected \Twilio\Rest\Client $twilio;
 
-    /**
-     * @var Twilio
-     */
     public function __construct(Twilio $twilio)
     {
         $this->twilio = $twilio->sdk();

@@ -23,13 +23,13 @@ class TwilioBundle
                     ->read([], 20);
     }
 
-    public function create($bundleName): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\BundleInstance
+    public function create($bundleName, $email): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\BundleInstance
     {
         return $this->twilio->numbers->v2->regulatoryCompliance
                     ->bundles
                     ->create(
                         $bundleName,
-                        'numbers-regulatory-review@twilio.com',
+                        $email,
                         [
                             'endUserType' => 'business',
                             'isoCountry' => 'de',
@@ -52,7 +52,7 @@ class TwilioBundle
             ->bundles($bundleSid)
             ->update(
                 [
-                    'friendlyName' => 'UpdatedSubmitedFriendlyName',
+                    'friendlyName' => 'UpdatedSubmittedFriendlyName',
                     'status' => 'pending-review',
                 ]
             );
