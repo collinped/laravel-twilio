@@ -15,7 +15,7 @@ class TwilioRequestValidator
      */
     public function handle(Request $request, Closure $next): mixed
     {
-        if (env('APP_ENV') === 'testing') {
+        if (env('APP_ENV') === 'testing' || config('twilio.disable_webhook_validation') === true) {
             return $next($request);
         }
 
