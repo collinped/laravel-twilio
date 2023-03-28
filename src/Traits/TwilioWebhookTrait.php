@@ -29,10 +29,11 @@ trait TwilioWebhookTrait
     {
         // TODO - Move validation to each of the individual controllers
         $callbackValidationArray = [
-            'StatusCallbackEvent' => 'required_without_all:EventType,MessageStatus,RecordingStatus',
-            'EventType' => 'required_without_all:StatusCallbackEvent,MessageStatus,RecordingStatus',
-            'MessageStatus' => 'required_without_all:StatusCallbackEvent,EventType,RecordingStatus',
-            'RecordingStatus' => 'required_without_all:StatusCallbackEvent,EventType,MessageStatus',
+            'StatusCallbackEvent' => 'required_without_all:EventType,MessageStatus,RecordingStatus,CallStatus',
+            'EventType' => 'required_without_all:StatusCallbackEvent,MessageStatus,RecordingStatus,CallStatus',
+            'MessageStatus' => 'required_without_all:StatusCallbackEvent,EventType,RecordingStatus,CallStatus',
+            'RecordingStatus' => 'required_without_all:StatusCallbackEvent,EventType,MessageStatus,CallStatus',
+            'CallStatus' => 'required_without_all:StatusCallbackEvent,EventType,MessageStatus,RecordingStatus',
         ];
 
         $request->validate($callbackValidationArray);
