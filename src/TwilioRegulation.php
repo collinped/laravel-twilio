@@ -15,7 +15,7 @@ class TwilioRegulation
 
     public function all(): array
     {
-        return  $this->twilio->numbers->v2->regulatoryCompliance
+        return $this->twilio->numbers->v2->regulatoryCompliance
             ->regulations
             ->read(
                 [
@@ -29,7 +29,7 @@ class TwilioRegulation
 
     public function find($regulationSid)
     {
-        return  $this->twilio->numbers->v2->regulatoryCompliance
+        return $this->twilio->numbers->v2->regulatoryCompliance
             ->regulations($regulationSid)
             ->fetch();
     }
