@@ -6,7 +6,7 @@ use Collinped\Twilio\Traits\TwilioWebhookTrait;
 use Illuminate\Routing\Controller;
 
 /**
- * Class TwilioVideoRoomCallback
+ * Class TwilioPayWebhookController
  */
 class TwilioPayWebhookController extends Controller
 {

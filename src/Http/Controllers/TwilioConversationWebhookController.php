@@ -7,7 +7,7 @@ use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class TwilioVideoRoomCallback
+ * Class TwilioConversationWebhookController
  */
 class TwilioConversationWebhookController extends Controller
 {

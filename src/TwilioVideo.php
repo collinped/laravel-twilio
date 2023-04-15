@@ -225,7 +225,7 @@ class TwilioVideo
      */
     public function setAwsRecordingSettings($name, $settings = [])
     {
-        return  $this->twilio->video->v1->recordingSettings()
+        return $this->twilio->video->v1->recordingSettings()
             ->create($name, $settings);
     }
 

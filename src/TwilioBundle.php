@@ -15,7 +15,7 @@ class TwilioBundle
 
     public function all(): array
     {
-        return  $this->twilio->numbers->v2->regulatoryCompliance
+        return $this->twilio->numbers->v2->regulatoryCompliance
                     ->bundles
                     ->read([], 20);
     }
@@ -38,7 +38,7 @@ class TwilioBundle
 
     public function find($bundleSid): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\BundleInstance
     {
-        return  $this->twilio->numbers->v2->regulatoryCompliance
+        return $this->twilio->numbers->v2->regulatoryCompliance
                     ->bundles($bundleSid)
                     ->fetch();
     }
@@ -57,7 +57,7 @@ class TwilioBundle
 
     public function delete($bundleSid): bool
     {
-        return  $this->twilio->numbers->v2->regulatoryCompliance
+        return $this->twilio->numbers->v2->regulatoryCompliance
             ->bundles($bundleSid)
             ->delete();
     }

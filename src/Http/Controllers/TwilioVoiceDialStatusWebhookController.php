@@ -7,18 +7,18 @@ use Illuminate\Routing\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class TwilioVoiceWebhookController
+ * Class TwilioVoiceDialStatusWebhookController
  */
-class TwilioVoiceWebhookController extends Controller
+class TwilioVoiceDialStatusWebhookController extends Controller
 {
     use TwilioWebhookTrait;
 
-    protected function handleInitiated(array $payload): Response
+    protected function handleBusy(array $payload): Response
     {
         return $this->successMethod($payload);
     }
 
-    protected function handleRinging(array $payload): Response
+    protected function handleNoAnswer(array $payload): Response
     {
         return $this->successMethod($payload);
     }
@@ -29,6 +29,16 @@ class TwilioVoiceWebhookController extends Controller
     }
 
     protected function handleCompleted(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleFailed(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
+    protected function handleCanceled(array $payload): Response
     {
         return $this->successMethod($payload);
     }

@@ -15,7 +15,7 @@ class TwilioVerify
 
     public function create($verifyServiceName): \Twilio\Rest\Verify\V2\ServiceInstance
     {
-        return  $this->twilio->verify->v2->services
+        return $this->twilio->verify->v2->services
             ->create($verifyServiceName);
     }
 
