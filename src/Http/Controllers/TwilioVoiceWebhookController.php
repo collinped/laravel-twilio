@@ -33,6 +33,11 @@ class TwilioVoiceWebhookController extends Controller
         return $this->successMethod($payload);
     }
 
+    protected function handleNoAnswer(array $payload): Response
+    {
+        return $this->successMethod($payload);
+    }
+
     protected function handleCompleted(array $payload): Response
     {
         return $this->successMethod($payload);
