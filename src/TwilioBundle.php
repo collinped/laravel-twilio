@@ -16,31 +16,31 @@ class TwilioBundle
     public function all(): array
     {
         return $this->twilio->numbers->v2->regulatoryCompliance
-                    ->bundles
-                    ->read([], 20);
+            ->bundles
+            ->read([], 20);
     }
 
     public function create($bundleName, $email): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\BundleInstance
     {
         return $this->twilio->numbers->v2->regulatoryCompliance
-                    ->bundles
-                    ->create(
-                        $bundleName,
-                        $email,
-                        [
-                            'endUserType' => 'business',
-                            'isoCountry' => 'de',
-                            'numberType' => 'local',
-                            'statusCallback' => 'https://twilio.status.callback.com',
-                        ]
-                    );
+            ->bundles
+            ->create(
+                $bundleName,
+                $email,
+                [
+                    'endUserType' => 'business',
+                    'isoCountry' => 'de',
+                    'numberType' => 'local',
+                    'statusCallback' => 'https://twilio.status.callback.com',
+                ]
+            );
     }
 
     public function find($bundleSid): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\BundleInstance
     {
         return $this->twilio->numbers->v2->regulatoryCompliance
-                    ->bundles($bundleSid)
-                    ->fetch();
+            ->bundles($bundleSid)
+            ->fetch();
     }
 
     public function update($bundleSid)

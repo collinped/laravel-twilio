@@ -97,13 +97,13 @@ class TwilioSms
     public function find($messageSid)
     {
         return $this->twilio->messages($messageSid)
-                ->fetch();
+            ->fetch();
     }
 
     public function redact($messageSid)
     {
         return $this->twilio->messages($messageSid)
-                ->update(['body' => '']);
+            ->update(['body' => '']);
     }
 
     public function delete($messageSid): bool
@@ -115,15 +115,15 @@ class TwilioSms
     public function fetchMedia($messageSid, $mediaSid)
     {
         return $this->twilio->messages($messageSid)
-                ->media($mediaSid)
-                ->fetch();
+            ->media($mediaSid)
+            ->fetch();
     }
 
     public function readMedia($messageSid): array
     {
         return $this->twilio->messages($messageSid)
-                ->media
-                ->read([], 20);
+            ->media
+            ->read([], 20);
     }
 
     public function deleteMedia($messageSid, $mediaSid): bool

@@ -45,8 +45,8 @@ class TwilioPhoneNumber
     public function searchByAreaCode($areaCode)
     {
         $phoneNumbers = $this->twilio->availablePhoneNumbers($this->region)
-                    ->local
-                    ->read(['areaCode' => $areaCode], 20);
+            ->local
+            ->read(['areaCode' => $areaCode], 20);
 
         return $this->formatResponse($phoneNumbers);
     }

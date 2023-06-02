@@ -19,7 +19,7 @@ class TwilioMessageService
     public function create($serviceName)
     {
         return $this->twilio->messaging->v1->services
-                ->create($serviceName);
+            ->create($serviceName);
     }
 
     public function fetch($serviceSid)
@@ -31,7 +31,7 @@ class TwilioMessageService
     public function read()
     {
         return $this->twilio->messaging->v1->services
-                ->read(20);
+            ->read(20);
     }
 
     public function update($serviceSid, $serviceName)

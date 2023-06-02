@@ -22,8 +22,8 @@ class TwilioVerify
     public function send($verifySid, $phoneNumber, $method = 'sms'): string
     {
         $verification = $this->twilio->verify->v2->services($verifySid)
-                            ->verifications
-                            ->create($phoneNumber, $method);
+            ->verifications
+            ->create($phoneNumber, $method);
 
         return $verification->status;
     }
@@ -33,11 +33,11 @@ class TwilioVerify
         $code = is_null($code) ? Str::upper(Str::random(6)) : $code;
 
         $verificationCheck = $this->twilio->verify->v2->services($verifySid)
-                                ->verificationChecks
-                                ->create(
-                                    $code,
-                                    ['to' => $phoneNumber]
-                                );
+            ->verificationChecks
+            ->create(
+                $code,
+                ['to' => $phoneNumber]
+            );
 
         return $verificationCheck->status;
     }
