@@ -7,7 +7,7 @@ use Orchestra\Testbench\TestCase as Orchestra;
 
 class TestCase extends Orchestra
 {
-//    protected bool $loadEnvironmentVariables = true;
+    //    protected bool $loadEnvironmentVariables = true;
 
     public function setUp(): void
     {

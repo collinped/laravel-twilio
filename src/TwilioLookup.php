@@ -43,7 +43,7 @@ class TwilioLookup
         }
 
         return $this->twilio->lookups->v1->phoneNumbers($phoneNumber)
-                ->fetch($data);
+            ->fetch($data);
     }
 
     public function withCarrier(): static

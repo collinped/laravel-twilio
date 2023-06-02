@@ -169,9 +169,9 @@ class TwilioVideo
 
     public function getParticipants($roomSid, $status = 'connected')
     {
-//        if ($status !== 'connected' || $status !== 'disconnected') {
-//            // Throw an error
-//        }
+        //        if ($status !== 'connected' || $status !== 'disconnected') {
+        //            // Throw an error
+        //        }
         return $this->twilio->video->v1->rooms($roomSid)
             ->participants->read([
                 'status' => $status,

@@ -16,9 +16,9 @@ class TwilioEvaluation
     public function all($bundleSid): array
     {
         return $this->twilio->numbers->v2->regulatoryCompliance
-                    ->bundles($bundleSid)
-                    ->evaluations
-                    ->read(20);
+            ->bundles($bundleSid)
+            ->evaluations
+            ->read(20);
     }
 
     public function find($evaluationSid, $bundleSid): \Twilio\Rest\Numbers\V2\RegulatoryCompliance\Bundle\EvaluationInstance

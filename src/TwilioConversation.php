@@ -24,26 +24,26 @@ class TwilioConversation
     public function get($conversationSid): \Twilio\Rest\Conversations\V1\ConversationInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
-                    ->fetch();
+            ->fetch();
     }
 
     public function addSmsParticipant($conversationSid, $participantNumber, $twilioPhoneNumber): \Twilio\Rest\Conversations\V1\Conversation\ParticipantInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
-                    ->participants
-                    ->create([
-                        'messagingBindingAddress' => $participantNumber, //Your Personal Mobile Number
-                        'messagingBindingProxyAddress' => $twilioPhoneNumber, //Your purchased Twilio Phone Number
-                    ]);
+            ->participants
+            ->create([
+                'messagingBindingAddress' => $participantNumber, //Your Personal Mobile Number
+                'messagingBindingProxyAddress' => $twilioPhoneNumber, //Your purchased Twilio Phone Number
+            ]);
     }
 
     public function addChatParticipant($conversationSid, $chatIdentity): \Twilio\Rest\Conversations\V1\Conversation\ParticipantInstance
     {
         return $this->twilio->conversations->v1->conversations($conversationSid)
-                ->participants
-                ->create([
-                    'identity' => $chatIdentity,
-                ]);
+            ->participants
+            ->create([
+                'identity' => $chatIdentity,
+            ]);
     }
 
     public function enableReachability($conversationSid)
